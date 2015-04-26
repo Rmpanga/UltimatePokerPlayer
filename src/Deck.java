@@ -7,13 +7,4 @@ public class Deck {
 	public void createDeck() {
 		
 	}
-	
-//	public Deck() {
-//		for(possible_cards) {
-//			for(possible_suits) {
-//				new Card();
-//			}
-//		}
-//	}
-	
 }
