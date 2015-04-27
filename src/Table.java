@@ -3,14 +3,14 @@ import java.util.ArrayList;
 
 public class Table {
 	private ArrayList<String> cards_on_table; 
-	private int bid;
+	private int pot;
 	
 	/*
 	 *  Creating a new table 
 	 */
 	public Table() {
 		cards_on_table = new ArrayList<String>();
-		bid = 0;
+		pot = 0;
 	}
 	
 	/*
