@@ -26,6 +26,21 @@ public class Dealer {
 		// distribute card to 1st player again
 		// distribute card to 2nd player again
 		
+		// first person who pays the ante first bids first
+		// second person can fold, call (match the first persons bid), or raise
+		// if second person folds, first person wins pot
+		// if second person calls, the dealer does flop, and first player gets a bid again and this process repeats
+		// if second person raises, the first person has the option to fold, call, or raise (this process can keep repeating over and over between players)
+		
+		// After second round of bids, dealer drops a turn card
+		// the first player gets to bid again and this process of fold, call, or raise repeats again
+		
+		// After third round of bids, dealer drops a river card
+		// the first play gets to bid again and this process of fold, call, or raise repeats again
+		
+		// After last bid, show cards 
+		// Determine who wins pot
+		// repeat this process
 		
 		
 		
