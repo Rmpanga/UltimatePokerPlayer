@@ -26,7 +26,6 @@ public class Dealer {
 			return;
 		}
 		else if (!player){
-			
 			Hand compHand = new Hand(Deck.deck.remove(0) , Deck.deck.remove(1));
 			Hand playerHand = new Hand(Deck.deck.remove(0), Deck.deck.remove(0));
 
@@ -35,13 +34,9 @@ public class Dealer {
 			
 			System.out.println("Player hand : " +playerHand.getCard1().retValue() + " " + playerHand.getCard1().retSuit() + " "+ playerHand.getCard2().retValue() + " " + playerHand.getCard2().retSuit());
 			System.out.println("Comp hand : " +compHand.getCard1().retValue() + " " + compHand.getCard1().retSuit() +" "+ compHand.getCard2().retValue() + " " + compHand.getCard2().retSuit());
-		return;
-		}
- 
-		
-		
+			return;
+		}	
 	}
-	
 	
 	
 	public static void main(String[] args) {
