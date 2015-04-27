@@ -8,8 +8,8 @@ public class Dealer {
 	// Computer and User starts with $5000
 	// ante will be $20, you pay every round, and increases by 5 every 10 rounds
 	
-	/*Distribute hands after shuffling the deck!!
-	 * 
+	/*
+	 * Distribute hands after shuffling the deck
 	 */
 	public static void distributeHands(boolean player, Computer george , User user){
 		
