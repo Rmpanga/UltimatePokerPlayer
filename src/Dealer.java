@@ -9,7 +9,7 @@ public class Dealer {
 	
 	public static void main(String[] args) {
 		
-		System.out.println("Welcome to Poker!!!!");
+		System.out.println("Welcome to Poker!!!");
 		System.out.println("What is your name?");
 		Scanner user_input = new Scanner(System.in);
 		String user_name = user_input.nextLine();
