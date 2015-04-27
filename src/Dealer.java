@@ -8,6 +8,8 @@ public class Dealer {
 	// Computer and User starts with $5000
 	// ante will be $20, you pay every round, and increases by 5 every 10 rounds
 	
+	public static final int ante = 20;
+	
 	/*
 	 * Distribute hands after shuffling the deck
 	 */
@@ -44,29 +46,46 @@ public class Dealer {
 		System.out.println("Welcome to Poker!!!!");
 		System.out.println("What is your name?");
 		Scanner user_input = new Scanner(System.in);
-		String user_name = user_input.nextLine();
-		System.out.println("Welcome " + user_name + "! You automatically start with $5000, Have Fun!");
-		System.out.println("You will be playing against George");
-		Computer George = new Computer("George");
+		String username = user_input.nextLine();
+		System.out.println("Welcome " + username + "! You automatically start with $5000, Have Fun!");
+		System.out.println("You will be playing against a computer named George");
+		Computer george = new Computer("George");
+		User user = new User(username);
 		
 		/*
 		 * Worry about this first
 		 */
-	
+		
+		System.out.println("Creating deck...");
 		// create deck
+		
+		System.out.println("Shuffling deck...");
 		// shuffle deck
+		
+		System.out.println("Creating table...");
 		// create table
 		
+		System.out.println("Ante amount is " + ante);
+		
+		System.out.println("Hey " + username + ", Do you want to play the ante (Type 'yes' or 'no') ?");
+		String yes_or_no = user_input.nextLine();
+		// ask user if he wants to pay ante, assuming he is going first (lets just have the user play first)
 		// pay the ante, if you don't have enough for the current ante, you put as much as you can to pay and the other player will put the same amount
-			// Computer pays ante
-			// Ask user if he wants to pay ante
-		// update each players antes
-		// distribute card to 1st player
-		// distribute card to 2nd player
-		// distribute card to 1st player again
-		// distribute card to 2nd player again
-		
-		
+		if(yes_or_no.toLowerCase().equals("yes")) {
+			// check if the user and the computer has enough to pay ante
+			// if not, pay as much as you can pay and the other play will put the same amount
+			System.out.println("Player pays ante");
+			System.out.println("Computer pays ante");
+			
+			System.out.println("Update players amount left after paying ante");
+			// update each players current amount left after paying ante
+			
+			System.out.println("Distributes cards to player and computer");
+			// distribute cards
+		} else {
+			System.out.println("Restart game");
+		}
+	
 		
 		
 		/*
