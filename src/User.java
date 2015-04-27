@@ -25,4 +25,24 @@ public class User {
 		//TODO
 	}
 	
+	/*
+	 * User folds their hand
+	 */
+	public void fold() {
+		
+	}
+	
+	/*
+	 * User calls their hand
+	 */
+	public void call() {
+		
+	}
+	
+	/*
+	 * User raises the current bid
+	 */
+	public void raise() {
+		
+	}
 }

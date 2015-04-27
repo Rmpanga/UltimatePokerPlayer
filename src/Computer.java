@@ -25,4 +25,25 @@ public class Computer {
 		//TODO
 	}
 	
+	/*
+	 * Computer folds their hand
+	 */
+	public void fold() {
+		
+	}
+	
+	/*
+	 * Computer calls their hand
+	 */
+	public void call() {
+		
+	}
+	
+	/*
+	 * Computer raises the current bid
+	 */
+	public void raise() {
+		
+	}
+	
 }
