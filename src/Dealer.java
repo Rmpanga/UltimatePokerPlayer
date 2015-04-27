@@ -3,13 +3,50 @@ import java.util.Scanner;
 
 public class Dealer {
 	
+
 	// $5000 buy in 
 	// Computer and User starts with $5000
 	// ante will be $20, you pay every round, and increases by 5 every 10 rounds
 	
+	/*Distribute hands after shuffling the deck!!
+	 * 
+	 */
+	public static void distributeHands(boolean player, Computer george , User user){
+		
+		if (player){
+			
+			Hand playerHand = new Hand(Deck.deck.remove(0) , Deck.deck.remove(1));
+			Hand compHand = new Hand(Deck.deck.remove(0), Deck.deck.remove(0));
+			
+			george.addHand(compHand);
+			user.addHand(playerHand);
+			
+			System.out.println("Player hand : " +playerHand.getCard1().retValue() + " " + playerHand.getCard1().retSuit() + " "+ playerHand.getCard2().retValue() + " " + playerHand.getCard2().retSuit());
+			System.out.println("Comp hand : " +compHand.getCard1().retValue() + " " + compHand.getCard1().retSuit() +" "+ compHand.getCard2().retValue() + " " + compHand.getCard2().retSuit());
+			return;
+		}
+		else if (!player){
+			
+			Hand compHand = new Hand(Deck.deck.remove(0) , Deck.deck.remove(1));
+			Hand playerHand = new Hand(Deck.deck.remove(0), Deck.deck.remove(0));
+
+			george.addHand(compHand);
+			user.addHand(playerHand);
+			
+			System.out.println("Player hand : " +playerHand.getCard1().retValue() + " " + playerHand.getCard1().retSuit() + " "+ playerHand.getCard2().retValue() + " " + playerHand.getCard2().retSuit());
+			System.out.println("Comp hand : " +compHand.getCard1().retValue() + " " + compHand.getCard1().retSuit() +" "+ compHand.getCard2().retValue() + " " + compHand.getCard2().retSuit());
+		return;
+		}
+ 
+		
+		
+	}
+	
+	
+	
 	public static void main(String[] args) {
 		
-		System.out.println("Welcome to Poker!!!");
+		System.out.println("Welcome to Poker!!!!");
 		System.out.println("What is your name?");
 		Scanner user_input = new Scanner(System.in);
 		String user_name = user_input.nextLine();

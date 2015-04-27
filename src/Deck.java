@@ -40,26 +40,7 @@ public class Deck {
 	}
 	
 	
-	/*Distribute hands after shuffling the deck!!
-	 * 
-	 */
-	public static void distributeHands(boolean player){
-		
-		if (player){
-			
-			Hand playerHand = new Hand(deck.remove(0) , deck.remove(1));
-			Hand compHand = new Hand(deck.remove(0), deck.remove(0));
-			
-			
-			System.out.println("Player hand : " +playerHand.getCard1().retValue() + " " + playerHand.getCard1().retSuit() + " "+ playerHand.getCard2().retValue() + " " + playerHand.getCard2().retSuit());
-			System.out.println("Comp hand : " +compHand.getCard1().retValue() + " " + compHand.getCard1().retSuit() +" "+ compHand.getCard2().retValue() + " " + compHand.getCard2().retSuit());
-
-			return;
-		}
- 
-		
-		
-	}
+	
 	
 	public static void main ( String [] args){
 		
@@ -68,7 +49,7 @@ public class Deck {
 		
 		System.out.println();
 		
-		distributeHands(true);
+		distributeHands(false);
 			
 	}
 
