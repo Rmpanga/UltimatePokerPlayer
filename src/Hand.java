@@ -9,5 +9,12 @@ public class Hand {
 	}
 	
 	
-
+	public Card getCard1(){
+		return card1;
+	}
+	
+	public Card getCard2(){
+		return card2;
+	}
+	
 }
