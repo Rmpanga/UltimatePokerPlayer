@@ -2,14 +2,14 @@ import java.util.ArrayList;
 
 
 public class Table {
-	private ArrayList<String> cards_on_table; 
+	private ArrayList<Card> cards_on_table; //Should be Card
 	private int pot;
 	
 	/*
 	 *  Creating a new table 
 	 */
 	public Table() {
-		cards_on_table = new ArrayList<String>();
+		cards_on_table = new ArrayList<Card>();
 		pot = 0;
 	}
 	
