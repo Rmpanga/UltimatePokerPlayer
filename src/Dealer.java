@@ -19,6 +19,7 @@ public class Dealer {
 		
 		// create deck
 		// shuffle deck
+		// create table
 		
 		// pay the ante, if you don't have enough for the current ante, you put as much as you can to pay and the other player will put the same amount
 		// distribute card to 1st player
