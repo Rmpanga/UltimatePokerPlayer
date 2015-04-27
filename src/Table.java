@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 
 public class Table {
+	
 	private ArrayList<Card> cards_on_table; //Should be Card
 	private int pot;
 	

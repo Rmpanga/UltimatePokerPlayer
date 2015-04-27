@@ -5,13 +5,10 @@ public class Deck {
 	
 	public static final String[] possible_cards = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
 	public static final String[] possible_suits = {"clubs", "hearts", "spades", "diamonds"};
-	
-
-	
 	static ArrayList<Card> deck = new ArrayList<Card>(52);
 	
 	/*@Tested
-	 *  - populates the deck accurately
+	 *  populates the deck accurately
 	 */
 	public static void populateDeck(){
 		
@@ -22,7 +19,9 @@ public class Deck {
 		}
 	}
 
-	//For debugging 
+	/*
+	 * 
+	 */
 	public static void printDeck(){
 		
 		for (Card card : deck){
@@ -33,7 +32,9 @@ public class Deck {
 		
 	}
 	
-	
+	/*
+	 * 
+	 */
 	public static void shuffleDeck(){
 		
 		
