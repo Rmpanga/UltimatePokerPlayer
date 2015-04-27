@@ -49,6 +49,10 @@ public class Dealer {
 		System.out.println("You will be playing against George");
 		Computer George = new Computer("George");
 		
+		/*
+		 * Worry about this first
+		 */
+	
 		// create deck
 		// shuffle deck
 		// create table
@@ -56,12 +60,22 @@ public class Dealer {
 		// pay the ante, if you don't have enough for the current ante, you put as much as you can to pay and the other player will put the same amount
 			// Computer pays ante
 			// Ask user if he wants to pay ante
+		// update each players antes
 		// distribute card to 1st player
 		// distribute card to 2nd player
 		// distribute card to 1st player again
 		// distribute card to 2nd player again
 		
+		
+		
+		
+		/*
+		 * Worry about the stuff below second
+		 */
+		
 		// first person who pays the ante first bids first
+			// if user -> ask him how much he wants to bid
+			// if computer -> needs to figure out how much to bid (first just keep it the same for now)
 		// second person can fold, call (match the first persons bid), or raise
 		// if second person folds, first person wins pot
 		// if second person calls, the dealer does flop, and first player gets a bid again and this process repeats
