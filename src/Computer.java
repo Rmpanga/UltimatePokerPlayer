@@ -18,4 +18,11 @@ public class Computer {
 		this.hand = hand;
 	}
 	
+	/*
+	 * Computer will pay ante
+	 */
+	public void payAnte(){
+		//TODO
+	}
+	
 }

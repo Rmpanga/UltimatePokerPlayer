@@ -54,6 +54,8 @@ public class Dealer {
 		// create table
 		
 		// pay the ante, if you don't have enough for the current ante, you put as much as you can to pay and the other player will put the same amount
+			// Computer pays ante
+			// Ask user if he wants to pay ante
 		// distribute card to 1st player
 		// distribute card to 2nd player
 		// distribute card to 1st player again

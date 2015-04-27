@@ -18,4 +18,11 @@ public class User {
 		this.hand = hand;
 	}
 	
+	/*
+	 * User pays ante
+	 */
+	public void payAnte() {
+		//TODO
+	}
+	
 }
