@@ -48,8 +48,6 @@ public class Deck {
 		printDeck();
 		
 		System.out.println();
-		
-		distributeHands(false);
 			
 	}
 
