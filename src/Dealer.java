@@ -2,7 +2,11 @@ import java.util.Scanner;
 
 
 public class Dealer {
-	
+	/**TODO
+	 * Test return cards to deck
+	 * Test return player hands to deck
+	 * 
+	 */
 
 	// $5000 buy in 
 	// Computer and User starts with $5000
@@ -56,10 +60,15 @@ public class Dealer {
 		
 	}
 	
+	/*
+	 * Return cards  on table to deck
+	 * Clears cards_on_table
+	 */
+	
 	public static void returnTableCardsToDeck(Table table){
 		
 		Deck.deck.addAll(table.getCardsOnTable());
-		
+		table.clearTable();
 	}
 	
 	

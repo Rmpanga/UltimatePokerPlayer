@@ -3,6 +3,11 @@ import java.util.ArrayList;
 
 public class Table {
 	
+	/**TODO
+	 * Test clear table
+	 * Test addCardsToTable
+	 */
+	
 	private ArrayList<Card> cards_on_table; //Should be Card
 	private int pot;
 	

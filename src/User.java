@@ -3,12 +3,14 @@ public class User {
 	
 	private String name;
 	private Hand hand;
+	private int chips;
 	
 	/*
 	 *	Creates new user and sets the name variable 
 	 */
 	public User(String name) {
 		this.name = name;
+		chips = 5000;
 	}
 	
 	/*

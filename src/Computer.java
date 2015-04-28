@@ -3,12 +3,13 @@ public class Computer {
 	
 	private String name;
 	private Hand hand;
-	
+	private int chips;
 	/*
 	 * Creates new computer and sets the name variable
 	 */
 	public Computer(String name) {
 		this.name = name;
+		chips = 5000;
 	}
 	
 	/*
