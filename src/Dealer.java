@@ -98,26 +98,19 @@ public class Dealer {
 		
 		System.out.println("Ante amount is " + ante);
 		
-		System.out.println("Hey " + username + ", Do you want to play the ante (Type 'yes' or 'no') ?");
-		String yes_or_no = user_input.nextLine();
-		// ask user if he wants to pay ante, assuming he is going first (lets just have the user play first)
-		// pay the ante, if you don't have enough for the current ante, you put as much as you can to pay and the other player will put the same amount
-		if(yes_or_no.toLowerCase().equals("yes")) {
-			// check if the user and the computer has enough to pay ante
-			// if not, pay as much as you can pay and the other play will put the same amount
-			System.out.println("Player pays ante");
-			System.out.println("Computer pays ante");
-			
-			System.out.println("Update players amount left after paying ante");
-			// update each players current amount left after paying ante
-			
-			System.out.println("Distributes cards to player and computer");
-			// distribute cards
-		} else {
-			System.out.println("Restart game");
-		}
-	
+		// check if computer can pay ante amount
+		// check if player can pay ante amount
+		// there is a condition here, if one of the players doesn't have enough to pay ante, that player needs to put as much as he can to pay the ante **
 		
+		System.out.println("Player pays ante");
+		System.out.println("Computer pays ante");
+		
+		System.out.println("Update players amount left after paying ante");
+		// update each players current amount left after paying ante
+		
+		System.out.println("Distributes cards to player and computer");
+		// distribute cards
+	
 		
 		/*
 		 * Worry about the stuff below second
