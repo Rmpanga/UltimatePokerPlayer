@@ -40,6 +40,28 @@ public class Table {
 	 * Add specific amount of cards into the table for both players to see
 	 */
 	private void addCardsToTable(int num){
+	   
+		for(int j =0; j < num; j++){
+			Card card = Deck.deck.remove(0);
+			cards_on_table.add(card);
+	   }
+	}
+	
+	/*
+	 * Return cards on table
+	 */
+	
+	public ArrayList<Card> getCardsOnTable(){
+		
+	 return cards_on_table;
+	}
+	
+	/*
+	 * Clears cards_on_table
+	 */
+	
+	public void clearTable(){
+		cards_on_table.clear();
 		
 	}
 

@@ -2,7 +2,7 @@
 public class Computer {
 	
 	private String name;
-	public Hand hand;
+	private Hand hand;
 	
 	/*
 	 * Creates new computer and sets the name variable
@@ -16,6 +16,15 @@ public class Computer {
 	 */
 	public void addHand(Hand hand){
 		this.hand = hand;
+	}
+	
+	/*
+	 * Return hand back to Dealer
+	 */
+	
+	public Hand retHand(){
+		
+		return hand;
 	}
 	
 	/*

@@ -33,8 +33,6 @@ public class Deck {
 		Random r = new Random ();
 		
 		for (int x =0; x<deck.size(); x++){
-		//	
-			//shuffledDeck.add(null);
 			indexes.add(x);
 		}
 		

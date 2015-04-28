@@ -18,6 +18,12 @@ public class User {
 		this.hand = hand;
 	}
 	
+	
+	public Hand retHand(){
+		
+		return hand;
+	}
+	
 	/*
 	 * User pays ante
 	 */

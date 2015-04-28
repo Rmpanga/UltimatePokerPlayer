@@ -8,7 +8,7 @@ public class Dealer {
 	// Computer and User starts with $5000
 	// ante will be $20, you pay every round, and increases by 5 every 10 rounds
 	
-	public static final int ante = 20;
+	public static final int ante = 20; //<-- shouldnt be final
 	
 	/*
 	 * Distribute hands after shuffling the deck
@@ -38,6 +38,28 @@ public class Dealer {
 			System.out.println("Comp hand : " +compHand.getCard1().retValue() + " " + compHand.getCard1().retSuit() +" "+ compHand.getCard2().retValue() + " " + compHand.getCard2().retSuit());
 			return;
 		}	
+	}
+	
+	/*
+	 * Get cards from players and returns it to the deck
+	 */
+	
+	public static void returnPlayerHandsToDeck(Computer george , User user){
+		Hand h1 = george.retHand();
+		Hand h2 = user.retHand();
+		
+		Deck.deck.add(h1.card1);
+		Deck.deck.add(h1.card2);
+		
+		Deck.deck.add(h2.card1);
+		Deck.deck.add(h2.card2);
+		
+	}
+	
+	public static void returnTableCardsToDeck(Table table){
+		
+		Deck.deck.addAll(table.getCardsOnTable());
+		
 	}
 	
 	
