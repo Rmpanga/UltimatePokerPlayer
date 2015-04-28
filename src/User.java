@@ -37,27 +37,27 @@ public class User {
 	 * User folds their hand
 	 */
 	public void fold() {
-		
+		//TODO
 	}
 	
 	/*
 	 * User calls their hand
 	 */
 	public void call() {
-		
+		//TODO
 	}
 	
 	/*
 	 * User raises the current bid
 	 */
 	public void raise() {
-		
+		//TODO
 	}
 	
 	/*
 	 * Displays User's hand
 	 */
 	public void showHand() {
-		
+		//TODO
 	}
 }

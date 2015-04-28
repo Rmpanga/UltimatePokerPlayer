@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Table {
 	
-	/**TODO
+	/* TODO
 	 * Test clear table
 	 * Test addCardsToTable
 	 */
