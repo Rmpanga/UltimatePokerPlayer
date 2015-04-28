@@ -8,7 +8,7 @@ public class Table {
 	 * Test addCardsToTable
 	 */
 	
-	private ArrayList<Card> cards_on_table; //Should be Card
+	private ArrayList<Card> cards_on_table; 
 	private int pot;
 	
 	/*
@@ -67,7 +67,7 @@ public class Table {
 	
 	public void clearTable(){
 		cards_on_table.clear();
-		
+
 	}
 
 
