@@ -29,8 +29,14 @@ public class Computer {
 	/*
 	 * Computer will pay ante
 	 */
-	public void payAnte(){
-		//TODO
+	public boolean payAnte(int ante){
+		// Still needs to test
+		if((chips-ante) <= 0) {
+			return false;
+		} else {
+			chips-=ante;
+			return true;
+		}
 	}
 	
 	/*

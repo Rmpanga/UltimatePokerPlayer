@@ -30,8 +30,14 @@ public class User {
 	/*
 	 * User pays ante
 	 */
-	public void payAnte() {
-		//TODO
+	public boolean payAnte(int ante) {
+		// Still needs to test
+		if((chips-ante) <= 0) {
+			return false;
+		} else {
+			chips-=ante;
+			return true;
+		}
 	}
 	
 	/*
