@@ -53,4 +53,11 @@ public class User {
 	public void raise() {
 		
 	}
+	
+	/*
+	 * Displays User's hand
+	 */
+	public void showHand() {
+		
+	}
 }
