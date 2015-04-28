@@ -24,6 +24,13 @@ public class TableTestDriver {
 		
 		Deck.printDeck();
 		
+		System.out.println("------------- Testing pot ---------------");
+		
+		System.out.println("Table pot: " + new_table.retPot() + " should be 0");
+		new_table.addToPot(40);
+		
+		System.out.println("Table pot: " + new_table.retPot() + " should be 40");
+		
 	}
 
 }

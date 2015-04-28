@@ -62,6 +62,20 @@ public class Table {
 		System.out.println();
 	}
 	
+	/* @Tested
+	 * Add to pot
+	 */
+	public void addToPot(int amount) {
+		pot+=amount;
+	}
+	
+	/* @Tested
+	 * Return pot amount
+	 */
+	public int retPot() {
+		return pot;
+	}
+	
 	/*
 	 * Return cards on table
 	 */

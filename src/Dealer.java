@@ -104,15 +104,21 @@ public class Dealer {
 		// check if player can pay ante amount
 		// there is a condition here, if one of the players doesn't have enough to pay ante, that player needs to put as much as he can to pay the ante **
 		
-		// player pays ante
-		// computer pays ante
+		boolean userPaid = user.payAnte(ante);
+		// player pays ante and updates its current amount left after ante
+		boolean compPaid = george.payAnte(ante);
+		// computer pays ante and updates its current amount left after ante
 		
-		System.out.println("Update players amount left after paying ante");
-		// update each players current amount left after paying ante
+		if(userPaid && compPaid) {
+			// add ante from user and computer to pot on table
+			new_table.addToPot(ante*2);
+		
+		} else {
+			// this will handle when the computer or play doesn't have enough to pay full ante - will have to figure out logic to pay only specific amount
+		}
 		
 		System.out.println("Distributes cards to player and computer");
 		// distribute cards
-	
 		
 		/*
 		 * Worry about the stuff below second
