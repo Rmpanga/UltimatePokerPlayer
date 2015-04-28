@@ -84,13 +84,4 @@ public class Deck {
 		printDeck();
 		
 	}
-
-//	public Deck() {
-//		for(possible_cards) {
-//			for(possible_suits) {
-//				new Card();
-//			}
-//		}
-//	}
-	
 }

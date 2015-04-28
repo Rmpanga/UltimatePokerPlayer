@@ -15,25 +15,25 @@ public class Table {
 	 *  Creating a new table 
 	 */
 	public Table() {
-		cards_on_table = new ArrayList<Card>();
+		cards_on_table = new ArrayList<Card>(5);
 		pot = 0;
 	}
 	
-	/*
+	/* @Tested
 	 * Dealer plays flop
 	 */
 	public void flop(){
 		addCardsToTable(3);
 	}
 	
-	/*
+	/* @Tested
 	 * Dealer plays turn
 	 */
 	public void turn(){
 		addCardsToTable(1);
 	}
 	
-	/*
+	/* @Tested
 	 * Dealer plays river
 	 */
 	public void river(){
@@ -41,7 +41,7 @@ public class Table {
 		
 	}
 	
-	/*
+	/* @Tested
 	 * Add specific amount of cards into the table for both players to see
 	 */
 	private void addCardsToTable(int num){
@@ -50,6 +50,16 @@ public class Table {
 			Card card = Deck.deck.remove(0);
 			cards_on_table.add(card);
 	   }
+	}
+	
+	/* @Tested
+	 * Shows the current amount of cards on the table
+	 */
+	public void showCardsOnTable() {
+		for(Card entry : cards_on_table) {
+			System.out.print("[ " + entry.retValue() + ", " + entry.retSuit() + " ]  ");
+		}
+		System.out.println();
 	}
 	
 	/*

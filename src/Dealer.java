@@ -90,12 +90,15 @@ public class Dealer {
 		
 		System.out.println("Creating deck...");
 		// create deck
+		Deck.populateDeck();
 		
 		System.out.println("Shuffling deck...");
 		// shuffle deck
+		Deck.shuffleDeck();
 		
 		System.out.println("Creating table...");
 		// create table
+		Table new_table = new Table();
 		
 		// check if computer can pay ante amount
 		// check if player can pay ante amount
@@ -133,9 +136,5 @@ public class Dealer {
 		// Determine who wins pot
 		// repeat this process
 		
-		
-		
-
 	}
-
 }
