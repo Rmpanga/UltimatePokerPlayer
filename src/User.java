@@ -20,9 +20,10 @@ public class User {
 		this.hand = hand;
 	}
 	
-	
+	/*
+	 * Return user's hand back to dealer
+	 */
 	public Hand retHand(){
-		
 		return hand;
 	}
 	

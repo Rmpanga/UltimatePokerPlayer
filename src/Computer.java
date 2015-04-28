@@ -20,11 +20,9 @@ public class Computer {
 	}
 	
 	/*
-	 * Return hand back to Dealer
+	 * Return computer's hand back to dealer
 	 */
-	
 	public Hand retHand(){
-		
 		return hand;
 	}
 	
