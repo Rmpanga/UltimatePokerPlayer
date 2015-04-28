@@ -4,12 +4,13 @@ public class Computer {
 	private String name;
 	private Hand hand;
 	private int chips;
+	
 	/*
 	 * Creates new computer and sets the name variable
 	 */
-	public Computer(String name) {
+	public Computer(String name, int start_chips) {
 		this.name = name;
-		chips = 5000;
+		chips = start_chips;
 	}
 	
 	/*
@@ -26,19 +27,18 @@ public class Computer {
 		return hand;
 	}
 	
-	/*
+	/* @Tested
 	 * Return user's chip amount
 	 */
 	public int retChips() {
 		return chips;
 	}
 	
-	/*
+	/* @Tested
 	 * Computer will pay ante
 	 */
 	public boolean payAnte(int ante){
-		// Still needs to test
-		if((chips-ante) <= 0) {
+		if((chips-ante) < 0) {
 			return false;
 		} else {
 			chips-=ante;

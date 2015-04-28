@@ -12,7 +12,8 @@ public class Dealer {
 	// Computer and User starts with $5000
 	// ante will be $20, you pay every round, and increases by 5 every 10 rounds
 	
-	public static final int ante = 20; //<-- shouldnt be final
+	public static int ante = 20; 
+	public static final int start_chip_amt = 5000;
 	
 	/*
 	 * Distribute hands after shuffling the deck
@@ -80,8 +81,8 @@ public class Dealer {
 		String username = user_input.nextLine();
 		System.out.println("Welcome " + username + "! You automatically start with $5000, Have Fun!");
 		System.out.println("You will be playing against a computer named George");
-		Computer george = new Computer("George");
-		User user = new User(username);
+		Computer george = new Computer("George", start_chip_amt);
+		User user = new User(username, start_chip_amt);
 		
 		/*
 		 * Worry about this first
@@ -96,19 +97,12 @@ public class Dealer {
 		System.out.println("Creating table...");
 		// create table
 		
-		System.out.println("Ante amount is " + ante);
-		
 		// check if computer can pay ante amount
 		// check if player can pay ante amount
 		// there is a condition here, if one of the players doesn't have enough to pay ante, that player needs to put as much as he can to pay the ante **
 		
-		System.out.println("Player pays ante");
 		// player pays ante
-		
-		
-		System.out.println("Computer pays ante");
 		// computer pays ante
-		
 		
 		System.out.println("Update players amount left after paying ante");
 		// update each players current amount left after paying ante

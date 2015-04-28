@@ -8,9 +8,9 @@ public class User {
 	/*
 	 *	Creates new user and sets the name variable 
 	 */
-	public User(String name) {
+	public User(String name, int start_chips) {
 		this.name = name;
-		chips = 5000;
+		chips = start_chips;
 	}
 	
 	/*
@@ -27,19 +27,18 @@ public class User {
 		return hand;
 	}
 	
-	/*
+	/* @Tested
 	 * Return user's chip amount
 	 */
 	public int retChips() {
 		return chips;
 	}
 	
-	/*
+	/* @Tested
 	 * User pays ante
 	 */
 	public boolean payAnte(int ante) {
-		// Still needs to test
-		if((chips-ante) <= 0) {
+		if((chips-ante) < 0) {
 			return false;
 		} else {
 			chips-=ante;
