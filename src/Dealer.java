@@ -103,7 +103,12 @@ public class Dealer {
 		// there is a condition here, if one of the players doesn't have enough to pay ante, that player needs to put as much as he can to pay the ante **
 		
 		System.out.println("Player pays ante");
+		// player pays ante
+		
+		
 		System.out.println("Computer pays ante");
+		// computer pays ante
+		
 		
 		System.out.println("Update players amount left after paying ante");
 		// update each players current amount left after paying ante

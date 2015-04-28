@@ -27,6 +27,13 @@ public class Computer {
 	}
 	
 	/*
+	 * Return user's chip amount
+	 */
+	public int retChips() {
+		return chips;
+	}
+	
+	/*
 	 * Computer will pay ante
 	 */
 	public boolean payAnte(int ante){

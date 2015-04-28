@@ -28,6 +28,13 @@ public class User {
 	}
 	
 	/*
+	 * Return user's chip amount
+	 */
+	public int retChips() {
+		return chips;
+	}
+	
+	/*
 	 * User pays ante
 	 */
 	public boolean payAnte(int ante) {
