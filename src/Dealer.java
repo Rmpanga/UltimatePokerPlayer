@@ -74,6 +74,75 @@ public class Dealer {
 		table.clearTable();
 	}
 	
+	/*
+	 * Handles the flop round, bids, etc.
+	 */
+	public static void flopRound(boolean player, Computer george, User user, Scanner user_input) {
+		if(player) {
+			// player bids
+			// computer can fold, call, or raise
+			// if fold - player gets current pot
+			// if raise - ask player if he wants to fold, call or raise
+				// the 2 line above can repeat**
+			// add bids to pot
+			// show flop
+		} else {
+			// computer bids
+			// player can fold, call, or raise
+			// if fold - computer gets current pot
+			// if raise - ask computer if he wants to fold, call or raise
+				// the 2 line above can repeat**
+			// add bids to pot
+			// show flop
+		}
+	}
+	
+	/*
+	 * Handles the turn round, bids, etc.
+	 */
+	public static void turnRound(boolean player, Computer george, User user, Scanner user_input) {
+		if(player) {
+			// player bids
+			// computer can fold, call, or raise
+			// if fold - player gets current pot
+			// if raise - ask player if he wants to fold, call or raise
+				// the 2 line above can repeat**
+			// add bids to pot
+			// show turn
+		} else {
+			// computer bids
+			// player can fold, call, or raise
+			// if fold - computer gets current pot
+			// if raise - ask computer if he wants to fold, call or raise
+				// the 2 line above can repeat**
+			// add bids to pot
+			// show turn
+		}
+	}
+	
+	/*
+	 * Handles the river round, bids, etc.
+	 */
+	public static void riverRound(boolean player, Computer george, User user, Scanner user_input) {
+		if(player) {
+			// player bids
+			// computer can fold, call, or raise
+			// if fold - player gets current pot
+			// if raise - ask player if he wants to fold, call or raise
+				// the 2 line above can repeat**
+			// add bids to pot
+			// show river
+		} else {
+			// computer bids
+			// player can fold, call, or raise
+			// if fold - computer gets current pot
+			// if raise - ask computer if he wants to fold, call or raise
+				// the 2 line above can repeat**
+			// add bids to pot
+			// show river
+		}
+	}
+	
 	
 	public static void main(String[] args) {
 		
@@ -123,15 +192,13 @@ public class Dealer {
 		// distribute cards
 		distributeHands(players_turn, george, user);
 		
-		
-		// next round the player doesn't go first - this will be put at the end
-		players_turn = !players_turn;
-
-		
 		/*
 		 * Worry about the stuff below second
 		 */
 		
+		flopRound(players_turn, george, user, user_input);
+		turnRound(players_turn, george, user, user_input);
+		riverRound(players_turn, george, user, user_input);
 		// first person who pays the ante first bids first
 			// if user -> ask him how much he wants to bid
 			// if computer -> needs to figure out how much to bid (first just keep it the same for now)
@@ -149,6 +216,9 @@ public class Dealer {
 		// After last bid, show cards 
 		// Determine who wins pot
 		// repeat this process
+		
+		// next round the player doesn't go first - this will be put at the end
+		players_turn = !players_turn;
 		
 	}
 }
