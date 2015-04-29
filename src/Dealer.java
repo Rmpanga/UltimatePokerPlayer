@@ -14,14 +14,15 @@ public class Dealer {
 	
 	public static int ante = 20; 
 	public static final int start_chip_amt = 5000;
+	public static boolean players_turn = false;
 	
-	/*
+	/* @Tested
 	 * Distribute hands after shuffling the deck
 	 */
 	public static void distributeHands(boolean player, Computer george , User user){
 		
 		if (player){
-			
+			System.out.println("Player goes first");
 			Hand playerHand = new Hand(Deck.deck.remove(0) , Deck.deck.remove(1));
 			Hand compHand = new Hand(Deck.deck.remove(0), Deck.deck.remove(0));
 			
@@ -33,14 +34,15 @@ public class Dealer {
 			return;
 		}
 		else if (!player){
+			System.out.println("Computer goes first");
 			Hand compHand = new Hand(Deck.deck.remove(0) , Deck.deck.remove(1));
 			Hand playerHand = new Hand(Deck.deck.remove(0), Deck.deck.remove(0));
 
 			george.addHand(compHand);
 			user.addHand(playerHand);
 			
-			System.out.println("Player hand : " +playerHand.getCard1().retValue() + " " + playerHand.getCard1().retSuit() + " "+ playerHand.getCard2().retValue() + " " + playerHand.getCard2().retSuit());
 			System.out.println("Comp hand : " +compHand.getCard1().retValue() + " " + compHand.getCard1().retSuit() +" "+ compHand.getCard2().retValue() + " " + compHand.getCard2().retSuit());
+			System.out.println("Player hand : " +playerHand.getCard1().retValue() + " " + playerHand.getCard1().retSuit() + " "+ playerHand.getCard2().retValue() + " " + playerHand.getCard2().retSuit());
 			return;
 		}	
 	}
@@ -104,10 +106,10 @@ public class Dealer {
 		// check if player can pay ante amount
 		// there is a condition here, if one of the players doesn't have enough to pay ante, that player needs to put as much as he can to pay the ante **
 		
-		boolean userPaid = user.payAnte(ante);
 		// player pays ante and updates its current amount left after ante
-		boolean compPaid = george.payAnte(ante);
+		boolean userPaid = user.payAnte(ante);
 		// computer pays ante and updates its current amount left after ante
+		boolean compPaid = george.payAnte(ante);
 		
 		if(userPaid && compPaid) {
 			// add ante from user and computer to pot on table
@@ -119,6 +121,12 @@ public class Dealer {
 		
 		System.out.println("Distributes cards to player and computer");
 		// distribute cards
+		distributeHands(players_turn, george, user);
+		
+		
+		// next round the player doesn't go first - this will be put at the end
+		players_turn = !players_turn;
+
 		
 		/*
 		 * Worry about the stuff below second
