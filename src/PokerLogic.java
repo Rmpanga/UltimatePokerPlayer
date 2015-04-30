@@ -3,14 +3,22 @@ import java.util.Scanner;
 
 public class PokerLogic {
 	/*
+	 * Handles the final round, bids, etc.
+	 */
+	public static boolean initRound(boolean player, Computer george, User user, Scanner user_input, Table table) {
+		// You have to handle when there are no chips from one person, or both people
+		System.out.println();
+		System.out.println(" --------------------- Initial Round --------------------- ");
+		return round(player, george, user, user_input, table, "final");
+	}
+	
+	/*
 	 * Handles the flop round, bids, etc.
 	 */
 	public static boolean flopRound(boolean player, Computer george, User user, Scanner user_input, Table table) {
 		// You have to handle when there are no chips from one person, or both people
 		System.out.println();
-		System.out.print(" --------------------- Flop Round ---------------------       Cards on Table: ");
-		table.showCardsOnTable();
-		System.out.println();
+		System.out.println(" --------------------- Flop Round --------------------- ");
 		return round(player, george, user, user_input, table, "flop");
 	}
 	
@@ -19,10 +27,7 @@ public class PokerLogic {
 	 */
 	public static boolean turnRound(boolean player, Computer george, User user, Scanner user_input, Table table) {
 		// You have to handle when there are no chips from one person, or both people
-		System.out.println();
-		System.out.print(" --------------------- Turn Round ---------------------       Cards on Table: ");
-		table.showCardsOnTable();
-		System.out.println();
+		System.out.println(" --------------------- Turn Round --------------------- ");
 		return round(player, george, user, user_input, table, "turn");
 	}
 	
@@ -31,9 +36,7 @@ public class PokerLogic {
 	 */
 	public static boolean riverRound(boolean player, Computer george, User user, Scanner user_input, Table table) {
 		// You have to handle when there are no chips from one person, or both people
-		System.out.println(" --------------------- River Round ---------------------       Cards on Table: ");
-		table.showCardsOnTable();
-		System.out.println();
+		System.out.println(" --------------------- River Round --------------------- ");
 		return round(player, george, user, user_input, table, "river");
 	}
 	
@@ -60,9 +63,22 @@ public class PokerLogic {
 			
 		if(!comp_move.equals("1")) {
 
+			// show flop, turn or river
+			if(specific_round.equals("flop")) {
+				table.flop();
+			} else if(specific_round.equals("turn")) {
+				table.turn();
+			} else if(specific_round.equals("river")) {
+				table.river();
+			} 	
+			
 			// computer bids
-
+			
 			george.bid(george.wantToBid(), user.retChips());							// this will have to change and have the computer do it instead
+			System.out.println();
+			System.out.print("Cards on Table: ");
+			table.showCardsOnTable();
+			System.out.println();
 			System.out.println("Computer bids " + george.wantToBid());																	
 			// I think there has to be an if and else statement here because what happens if didCompBid returns false ** problem here
 			table.addToPot(george.wantToBid());
@@ -139,14 +155,11 @@ public class PokerLogic {
 				// add bids to pot
 			}
 			
-			// show flop, turn or river
-			if(specific_round.equals("flop")) {
-				table.flop();
-			} else if(specific_round.equals("turn")) {
-				table.turn();
-			} else {
-				table.river();
-			}
+//			System.out.println();
+//			System.out.print("Cards on Table: ");
+//			table.showCardsOnTable();
+//			System.out.println();
+			
 			return true;
 		} 
 		

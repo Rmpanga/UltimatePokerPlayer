@@ -125,11 +125,14 @@ public class Dealer {
 		/*
 		 * Worry about the stuff below second
 		 */
-		
-		if(PokerLogic.flopRound(players_turn, george, user, user_input, new_table)) {
-			if(PokerLogic.turnRound(players_turn, george, user, user_input, new_table)) {
-				if(PokerLogic.riverRound(players_turn, george, user, user_input, new_table)) {
-					
+		if(PokerLogic.initRound(players_turn, george, user, user_input, new_table)) {
+			if(PokerLogic.flopRound(players_turn, george, user, user_input, new_table)) {
+				if(PokerLogic.turnRound(players_turn, george, user, user_input, new_table)) {
+					if(PokerLogic.riverRound(players_turn, george, user, user_input, new_table)) {
+						
+					} else {
+						
+					}
 				} else {
 					
 				}
