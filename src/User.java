@@ -4,6 +4,7 @@ public class User {
 	private String name;
 	private Hand hand;
 	private int chips;
+	private int user_bid;
 	
 	/*
 	 *	Creates new user and sets the name variable 
@@ -44,6 +45,20 @@ public class User {
 			chips-=ante;
 			return true;
 		}
+	}
+	
+	/*
+	 * Updates user's bid amount
+	 */
+	public void updateBid(int amount) {
+		user_bid = amount;
+	}
+	
+	/*
+	 * Amount user wants to bid
+	 */
+	public int wantToBid() {
+		return user_bid;
 	}
 	
 	/*

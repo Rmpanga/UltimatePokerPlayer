@@ -73,7 +73,17 @@ public class PokerLogic {
 				
 				System.out.println("How much do you want to bid?");
 				int user_bid_amt = Integer.parseInt(user_input.nextLine());
+				
+				user.updateBid(user_bid_amt);
+				user.bid(user.wantToBid(), george.retChips());
+				
+				System.out.println("You bid " + user.wantToBid());																	
+				// I think there has to be an if and else statement here because what happens if didCompBid returns false ** problem here
+				table.addToPot(user.wantToBid());
+				
 				// you need to work on
+				
+				
 				
 				
 			} else {
@@ -151,13 +161,13 @@ public class PokerLogic {
 					String comp_decision = george.decide(1);		// put -1 for fold, 0 for call, and 1 for raise
 							
 					if(comp_decision.toLowerCase().equals("1")) {
-							// computer folds
-							george.fold();
-							// give user current pot amount
-							user.recPot(table.retPot());
-							table.resetPot();
-							bothPlayersDone = true;
-							return false;
+						// computer folds
+						george.fold();
+						// give user current pot amount
+						user.recPot(table.retPot());
+						table.resetPot();
+						bothPlayersDone = true;
+						return false;
 								
 					} else if(comp_decision.toLowerCase().equals("2")) {
 						// computer calls
@@ -186,11 +196,6 @@ public class PokerLogic {
 					// the 2 line above can repeat**
 				// add bids to pot
 			}
-			
-//			System.out.println();
-//			System.out.print("Cards on Table: ");
-//			table.showCardsOnTable();
-//			System.out.println();
 			
 			return true;
 		} 
