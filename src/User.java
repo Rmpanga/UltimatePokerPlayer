@@ -4,6 +4,7 @@ public class User {
 	private String name;
 	private Hand hand;
 	private int chips;
+	private int user_bid;
 	
 	/*
 	 *	Creates new user and sets the name variable 
@@ -47,15 +48,24 @@ public class User {
 	}
 	
 	/*
+	 * Updates user's bid amount
+	 */
+	public void updateBid(int amount) {
+		user_bid = amount;
+	}
+	
+	/*
+	 * Amount user wants to bid
+	 */
+	public int wantToBid() {
+		return user_bid;
+	}
+	
+	/*
 	 * User bidding
 	 */
-	public boolean bid(int amount) {
-		if(!((chips - amount) < 0)) {
-			chips-=amount;
-			return true;
-		} else {
-			return false;
-		}
+	public void bid(int amount, int comp_chips) {
+		chips-=amount;
 	}
 	
 	/*
@@ -90,6 +100,6 @@ public class User {
 	 * Displays User's hand
 	 */
 	public void showHand() {
-		//TODO
+		System.out.println("[ " + hand.getCard1().retValue() + ", " + hand.getCard1().retSuit() + " ] , " + "[ " + hand.getCard2().retValue() + ", " + hand.getCard2().retSuit() + " ]  ");
 	}
 }
