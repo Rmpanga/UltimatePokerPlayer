@@ -78,8 +78,10 @@ public class Computer {
 		// the computer will have to consider the users_chip amount here too as well
 		// you have to update comp_bid amount after the computer makes it choice 
 		
-		chips-=amount;
 		
+		
+		chips-=amount;
+		comp_bid = amount;
 		
 		// user doesn't have same bid amount
 		// computer needs to lower it or force the other player to go all in
