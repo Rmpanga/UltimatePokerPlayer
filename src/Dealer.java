@@ -152,7 +152,7 @@ public class Dealer {
 					System.out.println("Table amt after raise: " + table.retPot());
 					
 					
-					String comp_decision = george.decide(0);
+					String comp_decision = george.decide(1);		// put -1 for fold, 0 for call, and 1 for raise
 					System.out.println(comp_decision);
 							
 					if(comp_decision.toLowerCase().equals("1")) {
@@ -181,7 +181,8 @@ public class Dealer {
 						bothPlayersDone = true;
 								
 					} else if(comp_decision.toLowerCase().equals("3")) {
-				
+						System.out.println("Computer amt before raise: " + george.retChips());
+						System.out.println("Table amt before raise: " + table.retPot());
 						// computer raises
 						// you have to fix this
 						george.bid(Integer.parseInt(user_raise_amt));
@@ -189,6 +190,8 @@ public class Dealer {
 						george.raise();
 						george.bid(george.wantToBid());					// this will have to change and have the computer do it instead
 						table.addToPot(george.wantToBid());
+						System.out.println("Computer amt after raise: " + george.retChips());
+						System.out.println("Table amt after raise: " + table.retPot());
 					}
 							
 				} else {
