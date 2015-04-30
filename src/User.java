@@ -85,6 +85,6 @@ public class User {
 	 * Displays User's hand
 	 */
 	public void showHand() {
-		//TODO
+		System.out.println("[ " + hand.getCard1().retValue() + ", " + hand.getCard1().retSuit() + " ] , " + "[ " + hand.getCard2().retValue() + ", " + hand.getCard2().retSuit() + " ]  ");
 	}
 }

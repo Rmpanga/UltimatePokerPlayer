@@ -8,7 +8,9 @@ public class PokerLogic {
 	public static boolean flopRound(boolean player, Computer george, User user, Scanner user_input, Table table) {
 		// You have to handle when there are no chips from one person, or both people
 		System.out.println();
-		System.out.println(" --------------------- Flop Round --------------------- ");
+		System.out.print(" --------------------- Flop Round ---------------------       Cards on Table: ");
+		table.showCardsOnTable();
+		System.out.println();
 		return round(player, george, user, user_input, table, "flop");
 	}
 	
@@ -17,6 +19,10 @@ public class PokerLogic {
 	 */
 	public static boolean turnRound(boolean player, Computer george, User user, Scanner user_input, Table table) {
 		// You have to handle when there are no chips from one person, or both people
+		System.out.println();
+		System.out.print(" --------------------- Turn Round ---------------------       Cards on Table: ");
+		table.showCardsOnTable();
+		System.out.println();
 		return round(player, george, user, user_input, table, "turn");
 	}
 	
@@ -25,6 +31,9 @@ public class PokerLogic {
 	 */
 	public static boolean riverRound(boolean player, Computer george, User user, Scanner user_input, Table table) {
 		// You have to handle when there are no chips from one person, or both people
+		System.out.println(" --------------------- River Round ---------------------       Cards on Table: ");
+		table.showCardsOnTable();
+		System.out.println();
 		return round(player, george, user, user_input, table, "river");
 	}
 	
@@ -59,6 +68,7 @@ public class PokerLogic {
 			table.addToPot(george.wantToBid());
 			while(!bothPlayersDone) {
 				System.out.println("Pot Amount: " + table.retPot());
+				user.showHand();
 				System.out.println("Do you want to fold, call, or raise? (Type '1' = fold, '2' = call, or '3' = raise) ");
 				// player can fold, call, or raise
 				String user_decision = user_input.nextLine();
