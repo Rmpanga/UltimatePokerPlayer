@@ -55,6 +55,9 @@ public class Dealer {
 		Hand h1 = george.retHand();
 		Hand h2 = user.retHand();
 		
+		
+		george.addHand(null);
+		user.addHand(null);
 		Deck.deck.add(h1.card1);
 		Deck.deck.add(h1.card2);
 		
