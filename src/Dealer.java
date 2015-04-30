@@ -95,7 +95,7 @@ public class Dealer {
 			
 		}
 			
-		String comp_move = george.decide();
+		String comp_move = george.decide(0);
 			
 		if(!comp_move.equals("1")) {
 			System.out.println("Pot Amount: " + table.retPot());
@@ -118,9 +118,12 @@ public class Dealer {
 					// fold - computer gets current pot
 					user.fold();
 					// give computer current pot amount
+					System.out.println("Table amount before user folds: " + table.retPot());
 					System.out.println("Computers amount before receiving pot " + george.retChips());
 					george.recPot(table.retPot());
+					table.resetPot();
 					System.out.println("Computers amount after receiving pot " + george.retChips());
+					System.out.println("Table amount after user folds: " + table.retPot());
 					bothPlayersDone = true;				
 					return false;
 							
@@ -136,6 +139,8 @@ public class Dealer {
 					bothPlayersDone = true;
 							
 				} else if(user_decision.toLowerCase().equals("3")) {
+					System.out.println("User amt before raise: " + user.retChips());
+					System.out.println("Table amt before raise: " + table.retPot());
 					// raise - ask computer to fold, raise or call
 					System.out.println("How much do you want to raise by? " + " you have: " + user.retChips());
 					String user_raise_amt = user_input.nextLine();
@@ -143,26 +148,40 @@ public class Dealer {
 					table.addToPot(george.wantToBid());
 					user.bid(Integer.parseInt(user_raise_amt));
 					table.addToPot(Integer.parseInt(user_raise_amt));
+					System.out.println("User amt after raise: " + user.retChips());
+					System.out.println("Table amt after raise: " + table.retPot());
 					
-					String comp_decision = george.decide();
+					
+					String comp_decision = george.decide(0);
+					System.out.println(comp_decision);
 							
 					if(comp_decision.toLowerCase().equals("1")) {
+							System.out.println("Table amount before comp folds: " + table.retPot());
 							// computer folds
 							george.fold();
 							// give user current pot amount
+							System.out.println("Users chips before computer folds: " + user.retChips());
 							user.recPot(table.retPot());
+							System.out.println("Users chips after computer folds: " + user.retChips());
+							table.resetPot();
+							System.out.println("Table amount after comp folds: " + table.retPot());
 							bothPlayersDone = true;
 							return false;
 								
 					} else if(comp_decision.toLowerCase().equals("2")) {
+						System.out.println("Table amt before computer calls: " + table.retPot());
 						// computer calls
+						System.out.println("Computer chips before calling: " + george.retChips());
 						george.call();
 						george.bid(Integer.parseInt(user_raise_amt));
+						System.out.println("Computer chips after call: " + george.retChips());
 						// add raised amount from computer to table pot
 						table.addToPot(Integer.parseInt(user_raise_amt));
+						System.out.println("Table amt after computer calls: " + table.retPot());
 						bothPlayersDone = true;
 								
 					} else if(comp_decision.toLowerCase().equals("3")) {
+				
 						// computer raises
 						// you have to fix this
 						george.bid(Integer.parseInt(user_raise_amt));

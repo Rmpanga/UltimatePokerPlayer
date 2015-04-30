@@ -69,13 +69,13 @@ public class Computer {
 	/*
 	 * Computer decides to fold, call, or raise
 	 */
-	public String decide() {
+	public String decide(int test) {				// you will eventually remove test and have the computer decide on its own
 		// you will have to have the computer do calculations here
-		int test = 0;
+		int test1 = test;
 		
-		if(test < 0) {
+		if(test1 < 0) {
 			return "1";					// this means fold
-		} else if(test == 0) {
+		} else if(test1 == 0) {
 			return "2";					// this means call
 		} else {
 			return "3";					// this means raise

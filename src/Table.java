@@ -77,6 +77,13 @@ public class Table {
 	}
 	
 	/*
+	 * Sets pot back to zero
+	 */
+	public void resetPot() {
+		pot = 0;
+	}
+	
+	/*
 	 * Return cards on table
 	 */
 	
