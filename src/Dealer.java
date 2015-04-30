@@ -14,7 +14,7 @@ public class Dealer {
 	
 	public static int ante = 20; 
 	public static final int start_chip_amt = 5000;
-	public static boolean players_turn = true;
+	public static boolean players_turn = false;
 	
 	/* @Tested
 	 * Distribute hands after shuffling the deck
@@ -98,38 +98,49 @@ public class Dealer {
 		String comp_move = george.decide();
 			
 		if(!comp_move.equals("1")) {
-				
+			System.out.println("Pot Amount: " + table.retPot());
 			System.out.println("Computer bids");
 			// computer bids
-			boolean didCompBid = george.bid(10);			// this will have to change and have the computer do it instead
-			table.addToPot(10);
+			System.out.println("Computers amount before bid: " + george.retChips());
+			boolean didCompBid = george.bid(george.wantToBid());							// this will have to change and have the computer do it instead
+			System.out.println("Computers amount after bid: " + george.retChips());
+			// I think there has to be an if and else statement here
+			table.addToPot(george.wantToBid());
+			System.out.println("Pot Amount after adding to table: " + table.retPot());
 				
-			while(!bothPlayersDone) {
+			while(!bothPlayersDone && didCompBid) {
 				System.out.println("Do you want to fold, call, or raise? (Type '1' = fold, '2' = call, or '3' = raise)");
 				// player can fold, call, or raise
 				String user_decision = user_input.nextLine();
 						
 				if(user_decision.toLowerCase().equals("1")) {
+					
 					// fold - computer gets current pot
 					user.fold();
 					// give computer current pot amount
+					System.out.println("Computers amount before receiving pot " + george.retChips());
 					george.recPot(table.retPot());
+					System.out.println("Computers amount after receiving pot " + george.retChips());
 					bothPlayersDone = true;				
 					return false;
 							
 				} else if(user_decision.toLowerCase().equals("2")) {
+					System.out.println("Users amt before call "  + user.retChips());
 					// call - show flop
 					user.call();
-					user.bid(10);
-					table.addToPot(10);
+					user.bid(george.wantToBid());
+					System.out.println("Users amt after call " + user.retChips());
+					System.out.println("Table amt before call " + table.retPot());
+					table.addToPot(george.wantToBid());
+					System.out.println("Table amt after call " + table.retPot());
 					bothPlayersDone = true;
 							
 				} else if(user_decision.toLowerCase().equals("3")) {
 					// raise - ask computer to fold, raise or call
 					System.out.println("How much do you want to raise by? " + " you have: " + user.retChips());
 					String user_raise_amt = user_input.nextLine();
-					user.bid(10);
-					table.addToPot(10);
+					user.bid(george.wantToBid());
+					table.addToPot(george.wantToBid());
 					user.bid(Integer.parseInt(user_raise_amt));
 					table.addToPot(Integer.parseInt(user_raise_amt));
 					

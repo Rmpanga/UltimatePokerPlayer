@@ -47,6 +47,14 @@ public class Computer {
 	}
 	
 	/*
+	 * Computer's bid amount
+	 */
+	public int wantToBid() {
+		int comp_bid = 10;
+		return comp_bid;
+	}
+	
+	/*
 	 * Computer bidding
 	 */
 	public boolean bid(int amount) {
