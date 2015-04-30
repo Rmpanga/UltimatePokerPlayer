@@ -104,7 +104,7 @@ public class Dealer {
 			System.out.println("Computers amount before bid: " + george.retChips());
 			boolean didCompBid = george.bid(george.wantToBid());							// this will have to change and have the computer do it instead
 			System.out.println("Computers amount after bid: " + george.retChips());
-			// I think there has to be an if and else statement here
+			// I think there has to be an if and else statement here because what happens if didCompBid returns false ** problem here
 			table.addToPot(george.wantToBid());
 			System.out.println("Pot Amount after adding to table: " + table.retPot());
 				
@@ -168,8 +168,8 @@ public class Dealer {
 						george.bid(Integer.parseInt(user_raise_amt));
 						table.addToPot(Integer.parseInt(user_raise_amt));
 						george.raise();
-						george.bid(10);					// this will have to change and have the computer do it instead
-						table.addToPot(10);
+						george.bid(george.wantToBid());					// this will have to change and have the computer do it instead
+						table.addToPot(george.wantToBid());
 					}
 							
 				} else {
