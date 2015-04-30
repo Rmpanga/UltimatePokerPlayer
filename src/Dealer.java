@@ -14,7 +14,7 @@ public class Dealer {
 	
 	public static int ante = 20; 
 	public static final int start_chip_amt = 5000;
-	public static boolean players_turn = false;
+	public static boolean players_turn = true;
 	
 	/* @Tested
 	 * Distribute hands after shuffling the deck
@@ -77,8 +77,14 @@ public class Dealer {
 	/*
 	 * Handles the flop round, bids, etc.
 	 */
-	public static void flopRound(boolean player, Computer george, User user, Scanner user_input) {
+	public static boolean flopRound(boolean player, Computer george, User user, Scanner user_input, Table table) {
+		
+		boolean bothPlayersDone = false;
+		
 		if(player) {
+			System.out.println("How much do you want to bid?");
+			int user_bid_amt = Integer.parseInt(user_input.nextLine());
+			
 			// player bids
 			// computer can fold, call, or raise
 			// if fold - player gets current pot
@@ -86,21 +92,99 @@ public class Dealer {
 				// the 2 line above can repeat**
 			// add bids to pot
 			// show flop
-		} else {
-			// computer bids
-			// player can fold, call, or raise
-			// if fold - computer gets current pot
-			// if raise - ask computer if he wants to fold, call or raise
-				// the 2 line above can repeat**
-			// add bids to pot
-			// show flop
+			
 		}
+			
+		String comp_move = george.decide();
+			
+		if(!comp_move.equals("1")) {
+				
+			System.out.println("Computer bids");
+			// computer bids
+			boolean didCompBid = george.bid(10);			// this will have to change and have the computer do it instead
+			table.addToPot(10);
+				
+			while(!bothPlayersDone) {
+				System.out.println("Do you want to fold, call, or raise? (Type '1' = fold, '2' = call, or '3' = raise)");
+				// player can fold, call, or raise
+				String user_decision = user_input.nextLine();
+						
+				if(user_decision.toLowerCase().equals("1")) {
+					// fold - computer gets current pot
+					user.fold();
+					// give computer current pot amount
+					george.recPot(table.retPot());
+					bothPlayersDone = true;				
+					return false;
+							
+				} else if(user_decision.toLowerCase().equals("2")) {
+					// call - show flop
+					user.call();
+					user.bid(10);
+					table.addToPot(10);
+					bothPlayersDone = true;
+							
+				} else if(user_decision.toLowerCase().equals("3")) {
+					// raise - ask computer to fold, raise or call
+					System.out.println("How much do you want to raise by? " + " you have: " + user.retChips());
+					String user_raise_amt = user_input.nextLine();
+					user.bid(10);
+					table.addToPot(10);
+					user.bid(Integer.parseInt(user_raise_amt));
+					table.addToPot(Integer.parseInt(user_raise_amt));
+					
+					String comp_decision = george.decide();
+							
+					if(comp_decision.toLowerCase().equals("1")) {
+							// computer folds
+							george.fold();
+							// give user current pot amount
+							user.recPot(table.retPot());
+							bothPlayersDone = true;
+							return false;
+								
+					} else if(comp_decision.toLowerCase().equals("2")) {
+						// computer calls
+						george.call();
+						george.bid(Integer.parseInt(user_raise_amt));
+						// add raised amount from computer to table pot
+						table.addToPot(Integer.parseInt(user_raise_amt));
+						bothPlayersDone = true;
+								
+					} else if(comp_decision.toLowerCase().equals("3")) {
+						// computer raises
+						// you have to fix this
+						george.bid(Integer.parseInt(user_raise_amt));
+						table.addToPot(Integer.parseInt(user_raise_amt));
+						george.raise();
+						george.bid(10);					// this will have to change and have the computer do it instead
+						table.addToPot(10);
+					}
+							
+				} else {
+					System.out.println("You typed something incorrectly... you will have to restart the game");
+				}
+						
+				// if fold - computer gets current pot
+				// if raise - ask computer if he wants to fold, call or raise
+					// the 2 line above can repeat**
+				// add bids to pot
+			}
+			
+			// show flop
+			table.flop();
+			return true;
+			
+		} 
+		
+		// user gets current pot amount
+		return false;
 	}
 	
 	/*
 	 * Handles the turn round, bids, etc.
 	 */
-	public static void turnRound(boolean player, Computer george, User user, Scanner user_input) {
+	public static boolean turnRound(boolean player, Computer george, User user, Scanner user_input, Table table) {
 		if(player) {
 			// player bids
 			// computer can fold, call, or raise
@@ -108,7 +192,6 @@ public class Dealer {
 			// if raise - ask player if he wants to fold, call or raise
 				// the 2 line above can repeat**
 			// add bids to pot
-			// show turn
 		} else {
 			// computer bids
 			// player can fold, call, or raise
@@ -116,14 +199,17 @@ public class Dealer {
 			// if raise - ask computer if he wants to fold, call or raise
 				// the 2 line above can repeat**
 			// add bids to pot
-			// show turn
 		}
+		
+		// show turn
+		table.turn();
+		return true;
 	}
 	
 	/*
 	 * Handles the river round, bids, etc.
 	 */
-	public static void riverRound(boolean player, Computer george, User user, Scanner user_input) {
+	public static boolean riverRound(boolean player, Computer george, User user, Scanner user_input, Table table) {
 		if(player) {
 			// player bids
 			// computer can fold, call, or raise
@@ -131,7 +217,6 @@ public class Dealer {
 			// if raise - ask player if he wants to fold, call or raise
 				// the 2 line above can repeat**
 			// add bids to pot
-			// show river
 		} else {
 			// computer bids
 			// player can fold, call, or raise
@@ -139,8 +224,11 @@ public class Dealer {
 			// if raise - ask computer if he wants to fold, call or raise
 				// the 2 line above can repeat**
 			// add bids to pot
-			// show river
 		}
+		
+		// show river
+		table.river();
+		return true;
 	}
 	
 	
@@ -196,9 +284,19 @@ public class Dealer {
 		 * Worry about the stuff below second
 		 */
 		
-		flopRound(players_turn, george, user, user_input);
-		turnRound(players_turn, george, user, user_input);
-		riverRound(players_turn, george, user, user_input);
+		if(flopRound(players_turn, george, user, user_input, new_table)) {
+			if(turnRound(players_turn, george, user, user_input, new_table)) {
+				if(riverRound(players_turn, george, user, user_input, new_table)) {
+					
+				} else {
+					
+				}
+			} else {
+				
+			}
+		} else {
+			
+		}
 		// first person who pays the ante first bids first
 			// if user -> ask him how much he wants to bid
 			// if computer -> needs to figure out how much to bid (first just keep it the same for now)

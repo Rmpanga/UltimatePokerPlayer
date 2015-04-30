@@ -47,6 +47,25 @@ public class User {
 	}
 	
 	/*
+	 * User bidding
+	 */
+	public boolean bid(int amount) {
+		if(!((chips - amount) < 0)) {
+			chips-=amount;
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	/*
+	 * User receives pot from table
+	 */
+	public void recPot(int amount) {
+		chips+=amount;
+	}
+	
+	/*
 	 * User folds their hand
 	 */
 	public void fold() {

@@ -47,6 +47,42 @@ public class Computer {
 	}
 	
 	/*
+	 * Computer bidding
+	 */
+	public boolean bid(int amount) {
+		if(!((chips - amount) < 0)) {
+			chips-=amount;
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	/*
+	 * Computer decides to fold, call, or raise
+	 */
+	public String decide() {
+		// you will have to have the computer do calculations here
+		int test = 0;
+		
+		if(test < 0) {
+			return "1";					// this means fold
+		} else if(test == 0) {
+			return "2";					// this means call
+		} else {
+			return "3";					// this means raise
+		}
+		
+	}
+	
+	/*
+	 * Computer receives pot from table
+	 */
+	public void recPot(int amount) {
+		chips+=amount;
+	}
+	
+	/*
 	 * Computer folds their hand
 	 */
 	public void fold() {
