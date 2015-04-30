@@ -107,7 +107,6 @@ public class Dealer {
 			// I think there has to be an if and else statement here because what happens if didCompBid returns false ** problem here
 			table.addToPot(george.wantToBid());
 			System.out.println("Pot Amount after adding to table: " + table.retPot());
-				
 			while(!bothPlayersDone && didCompBid) {
 				System.out.println("Do you want to fold, call, or raise? (Type '1' = fold, '2' = call, or '3' = raise)");
 				// player can fold, call, or raise
@@ -203,7 +202,7 @@ public class Dealer {
 					// the 2 line above can repeat**
 				// add bids to pot
 			}
-			
+			System.out.println("Here");
 			// show flop
 			table.flop();
 			return true;

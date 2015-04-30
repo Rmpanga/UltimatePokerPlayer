@@ -24,6 +24,7 @@ public class Table {
 	 */
 	public void flop(){
 		addCardsToTable(3);
+		showCardsOnTable();
 	}
 	
 	/* @Tested
@@ -31,6 +32,7 @@ public class Table {
 	 */
 	public void turn(){
 		addCardsToTable(1);
+		showCardsOnTable();
 	}
 	
 	/* @Tested
@@ -38,7 +40,7 @@ public class Table {
 	 */
 	public void river(){
 		addCardsToTable(1);
-		
+		showCardsOnTable();
 	}
 	
 	/* @Tested
