@@ -46,8 +46,39 @@ public class PokerLogic {
 		boolean bothPlayersDone = false;
 		
 		if(player) {
-			System.out.println("How much do you want to bid?");
-			int user_bid_amt = Integer.parseInt(user_input.nextLine());
+			// show flop, turn or river
+			if(specific_round.equals("flop")) {
+				table.flop();
+			} else if(specific_round.equals("turn")) {
+				table.turn();
+			} else if(specific_round.equals("river")) {
+				table.river();
+			} 	
+			
+			System.out.println();
+			System.out.print("Cards on Table: ");
+			table.showCardsOnTable();
+			System.out.println();
+			
+			System.out.println("Pot Amount: " + table.retPot());
+			user.showHand();
+			System.out.println();
+			System.out.println("Do you want to bid or fold? (Type '1' = fold '2' = bid)");
+			// player can fold, call, or raise
+			String user_decision = user_input.nextLine();
+			
+			if(user_decision.toLowerCase().equals("1")) {
+				return false;
+			} else if(user_decision.toLowerCase().equals("2")) {
+				
+				System.out.println("How much do you want to bid?");
+				int user_bid_amt = Integer.parseInt(user_input.nextLine());
+				// you need to work on
+				
+				
+			} else {
+				System.out.println("Restart game you typed in something invalid");
+			}
 			
 			// player bids
 			// computer can fold, call, or raise
@@ -85,6 +116,7 @@ public class PokerLogic {
 			while(!bothPlayersDone) {
 				System.out.println("Pot Amount: " + table.retPot());
 				user.showHand();
+				System.out.println();
 				System.out.println("Do you want to fold, call, or raise? (Type '1' = fold, '2' = call, or '3' = raise) ");
 				// player can fold, call, or raise
 				String user_decision = user_input.nextLine();
