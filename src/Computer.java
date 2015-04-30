@@ -4,6 +4,7 @@ public class Computer {
 	private String name;
 	private Hand hand;
 	private int chips;
+	private int comp_bid = 10;
 	
 	/*
 	 * Creates new computer and sets the name variable
@@ -46,24 +47,39 @@ public class Computer {
 		}
 	}
 	
+//	/*
+//	 * Update Computer's bid amount
+//	 */
+//	public void updateBid(int amount) {
+//		comp_bid = amount;
+//	}
+	
 	/*
 	 * Computer's bid amount
 	 */
 	public int wantToBid() {
-		int comp_bid = 10;
 		return comp_bid;
 	}
+
+//	public boolean canMakeBid(int amount) {
+//		if(!((chips - amount) < 0)) {
+//			chips-=amount;
+//			return true;
+//		} else {
+//			return false;
+//		}
+//	}
 	
 	/*
 	 * Computer bidding
 	 */
-	public boolean bid(int amount) {
-		if(!((chips - amount) < 0)) {
-			chips-=amount;
-			return true;
-		} else {
-			return false;
-		}
+	public void bid(int amount, int user_chips) {
+		// the computer will have to handle how much it should bid, without going over its amount
+		// the computer will have to consider the users_chip amount here too as well
+		
+		
+		// user doesn't have same bid amount
+		// computer needs to lower it or force the other player to go all in
 	}
 	
 	/*

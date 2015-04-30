@@ -49,13 +49,8 @@ public class User {
 	/*
 	 * User bidding
 	 */
-	public boolean bid(int amount) {
-		if(!((chips - amount) < 0)) {
-			chips-=amount;
-			return true;
-		} else {
-			return false;
-		}
+	public void bid(int amount, int comp_chips) {
+		
 	}
 	
 	/*
