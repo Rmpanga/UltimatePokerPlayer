@@ -76,6 +76,9 @@ public class Computer {
 	public void bid(int amount, int user_chips) {
 		// the computer will have to handle how much it should bid, without going over its amount
 		// the computer will have to consider the users_chip amount here too as well
+		// you have to update comp_bid amount after the computer makes it choice 
+		
+		chips-=amount;
 		
 		
 		// user doesn't have same bid amount

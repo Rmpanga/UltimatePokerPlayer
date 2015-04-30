@@ -50,7 +50,7 @@ public class User {
 	 * User bidding
 	 */
 	public void bid(int amount, int comp_chips) {
-		
+		chips-=amount;
 	}
 	
 	/*
