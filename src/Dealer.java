@@ -1,6 +1,5 @@
 import java.util.Scanner;
 
-
 public class Dealer {
 	/**TODO
 	 * Test return cards to deck
@@ -14,7 +13,7 @@ public class Dealer {
 	
 	public static int ante = 20; 
 	public static final int start_chip_amt = 5000;
-	public static boolean players_turn = true;
+	public static boolean players_turn = false;
 	
 	/* @Tested
 	 * Distribute hands after shuffling the deck

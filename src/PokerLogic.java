@@ -67,8 +67,7 @@ public class PokerLogic {
 			//If one player is ALL IN keep returning true
 //			if (user.retChips() > 0 && george.retChips() > 0){ 							// this will need to be removed here
 				System.out.println("Do you want to fold, check, or raise (Type '1' = fold '2' = check '3' = raise)");
-//				System.out.println("Do you want to bid or fold? (Type '1' = fold '2' = bid)");
-				// player can fold, call, or raise
+				// player can fold, check, or raise
 				String user_decision = user_input.nextLine();
 			
 				if(user_decision.toLowerCase().equals("1")) {
@@ -85,10 +84,10 @@ public class PokerLogic {
 					user.check();
 					
 					while(!bothPlayersDone){
-						String comp_decision = george.decide(1);						// put -1 for fold, 0 for check, 2 for check,  1 for raise
+						String comp_decision = george.decide(1);								// put -1 for fold, 0 for check, 2 for check,  1 for raise
 						
 						if(comp_decision.toLowerCase().equals("1")) {
-							
+							System.out.println("Computer decides to fold");
 							// computer - folds
 							// user gets pot
 							// table pot reset
@@ -100,6 +99,7 @@ public class PokerLogic {
 							return false;
 							
 						} else if(comp_decision.toLowerCase().equals("2")) { 
+							System.out.println("Computer decides to call");
 							
 							george.call();
 							george.bid(user_raised_bid, user.retChips());
@@ -108,6 +108,7 @@ public class PokerLogic {
 							return true;
 							
 						} else if(comp_decision.toLowerCase().equals("4")) {
+							System.out.println("Computer decides to check");
 							// computer also checks
 							// no one bids or receives pot
 							// move to next round
@@ -116,9 +117,12 @@ public class PokerLogic {
 							return true;
 							
 						} else if(comp_decision.toLowerCase().equals("3")) {
+							System.out.println("Computer decides to raise");
 							// this is for raise
 							
 							int comp_raise = george.howMuchToRaise();
+							
+							System.out.println("Computer raises by: " + comp_raise);
 							
 							george.bid(comp_raise, user.retChips());
 							table.addToPot(comp_raise);
@@ -128,7 +132,7 @@ public class PokerLogic {
 								table.addToPot(user_raised_bid);
 							} 
 							
-							// ask user what he wants to do here
+							
 							System.out.println("Do you want to fold, call, or raise? (Type '1' = fold, '2' = call, or '3' = raise) ");
 							String user_move = user_input.nextLine();
 							
@@ -282,9 +286,19 @@ public class PokerLogic {
 			table.river();
 		} 	
 		
-		String comp_move = george.decide(2);					// -1 for fold, 2 for check, and 1 for raise
+		System.out.println();
+		System.out.print("Cards on Table: ");
+		table.showCardsOnTable();
+		System.out.println();
+		
+		System.out.println("Pot Amount: " + table.retPot());
+		user.showHand();
+		System.out.println();
+		
+		String comp_move = george.decide(2);											// -1 for fold, 2 for check, and 1 for raise
 				
 		if(comp_move.toLowerCase().equals("1")) {
+			System.out.println("Computer decides to fold");
 			// computer folds
 			// user receives pot amount
 			// reset the pot
@@ -293,6 +307,7 @@ public class PokerLogic {
 			return false;
 			
 		} else if (comp_move.toLowerCase().equals("4")) {
+			System.out.println("Computer decides to check");
 			int count = 0;
 			int george_raised_bid = 0;
 			// computer checks
@@ -333,6 +348,7 @@ public class PokerLogic {
 					}
 					
 				} else if(user_move.toLowerCase().equals("3")) {
+					
 					// user raises
 					
 					System.out.println("How much do you want to raise by?");
@@ -346,9 +362,10 @@ public class PokerLogic {
 						table.addToPot(george_raised_bid);
 					}
 					
-					String comp_decision = george.decide(0);							// -1 for fold, 0 for call, 1 for raise
+					String comp_decision = george.decide(1);							// -1 for fold, 0 for call, 1 for raise
 					
 					if(comp_decision.toLowerCase().equals("1")) {
+						System.out.println("Computer decides to fold");
 						// computer folds
 						// user getrs pot
 						// reset table pot
@@ -362,6 +379,8 @@ public class PokerLogic {
 						return false;
 						
 					} else if(comp_decision.toLowerCase().equals("2")) {
+						System.out.println("Computer decides to call");
+
 						// computer calls
 						// computer bids user raised amt (user_raise_amt)
 						// add user_raise_amt to table pot
@@ -375,6 +394,7 @@ public class PokerLogic {
 						return true;
 						
 					} else if(comp_decision.toLowerCase().equals("3")) {
+						System.out.println("Computer decides to raise");
 						// computer raises
 						// ask how much computer wants to raise by
 						// computer bids user raised amt (user_raise_amt)
@@ -384,6 +404,7 @@ public class PokerLogic {
 						
 						george.raise();
 						int george_raise_amt = george.howMuchToRaise();
+						System.out.println("Computer raises by " + george_raise_amt);
 						
 						george.bid(user_raise_amt, user.retChips());
 						table.addToPot(user_raise_amt);
@@ -397,6 +418,7 @@ public class PokerLogic {
 			}
 			
 		} else if(comp_move.toLowerCase().equals("3")) {
+			System.out.println("Computer decides to raise");
 			// computer raises
 			george.raise();
 			int george_raise_amt = george.howMuchToRaise();
@@ -437,9 +459,10 @@ public class PokerLogic {
 					user.bid(user_raise_amt, george.retChips());
 					table.addToPot(user_raise_amt);
 					
-					String comp_move2 = george.decide(0);					// -1 for fold, 0 for call, 1 for raise
-					
+					String comp_move2 = george.decide(1);					// -1 for fold, 0 for call, 1 for raise
+					System.out.println("Here");
 					if(comp_move2.equals("1")) {
+						System.out.println("Computer decides to fold");
 						// computer folds
 						george.fold();
 						// give user current pot amount
@@ -449,6 +472,7 @@ public class PokerLogic {
 						return false;
 						
 					} else if(comp_move2.equals("2")) {
+						System.out.println("Computer decides to call");
 						// computer calls
 						george.call();
 						george.bid(user_raise_amt, user.retChips());
@@ -458,9 +482,11 @@ public class PokerLogic {
 						
 					} else if(comp_move2.equals("3")) {
 						// computer raise
-						
+						System.out.println("Computer decides to raise");
+
 						int comp_raise_amt = george.howMuchToRaise();
 						
+						System.out.println("Computer raises by " + comp_raise_amt);
 						george.bid(user_raise_amt, user.retChips());
 						table.addToPot(user_raise_amt);
 						george.raise();
