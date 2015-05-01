@@ -79,28 +79,103 @@ public class PokerLogic {
 					return false;
 					
 				} else if(user_decision.toLowerCase().equals("2")) {
-					
-				} 
 				
-				else if(user_decision.toLowerCase().equals("2")) {
-				
-					System.out.println("How much do you want to bid?");
-					int user_bid_amt = Integer.parseInt(user_input.nextLine());
-				
-					user.updateBid(user_bid_amt);
-					user.bid(user.wantToBid(), george.retChips());
-				
-					System.out.println("You bid " + user.wantToBid());																	
-					// I think there has to be an if and else statement here because what happens if didCompBid returns false ** problem here
-					table.addToPot(user.wantToBid());
-					
-					while(!bothPlayersDone) {
-						
-						String comp_decision = george.decide(1);						// put -1 for fold, 0 for call, and 1 for raise
+					while(!bothPlayersDone){
+						String comp_decision = george.decide(1);						// put -1 for fold, 2 for check,  1 for raise
 						
 						if(comp_decision.toLowerCase().equals("1")) {
 							
-							// fold - user gets current pot
+							// computer - folds
+							// user gets pot
+							// table pot reset
+							// return false;
+							
+							george.fold();
+							user.recPot(table.retPot());
+							table.resetPot();
+							return false;
+							
+						} else if(comp_decision.toLowerCase().equals("4")) {
+							// computer also checks
+							// no one bids or receives pot
+							// move to next round
+							
+							george.check();
+							return true;
+							
+						} else if(comp_decision.toLowerCase().equals("3")) {
+							// this is for raise
+							
+							int comp_raise = george.howMuchToRaise();
+							
+							george.bid(comp_raise, user.retChips());
+							table.addToPot(comp_raise);
+							
+							// ask user what he wants to do here
+							System.out.println("Do you want to fold, call, or raise? (Type '1' = fold, '2' = call, or '3' = raise) ");
+							String user_move = user_input.nextLine();
+							
+							if(user_move.toLowerCase().equals("1")) {
+								// user folds
+								// computer gets pot
+								// reset table pot
+								// bothPlayersDone = true;
+								// return false;
+								
+								user.fold();
+								george.recPot(table.retPot());
+								table.resetPot();
+								bothPlayersDone = true;
+								return false;
+								
+							} else if(user_move.toLowerCase().equals("2")) {
+								// user calls
+								// user bids computer raised amt (comp_raise)
+								// add comp_raise amt to table pot
+								// bothPlayersDone = true;
+								
+								user.call();
+								user.bid(comp_raise, george.retChips());
+								table.addToPot(comp_raise);
+								bothPlayersDone = true;
+								return true;
+								
+							} else if(user_move.toLowerCase().equals("3")) {
+								// user raises
+								// Ask user how much he wants to raise by
+								// user bids computer raised amt (comp_raise)
+								// add comp_raise amt to table pot
+								// user bids his raised amt
+								// add user_bid amount to table pot
+								
+								System.out.println("How much do you want to raise by?");
+								int user_raise_amt = Integer.parseInt(user_input.nextLine());
+								
+								user.raise();
+								user.bid(comp_raise, george.retChips());
+								table.addToPot(comp_raise);
+								user.bid(user_raise_amt, george.retChips());
+								table.addToPot(user_raise_amt);
+							}
+						}
+					}
+					
+					return true;
+					
+				} else if(user_decision.toLowerCase().equals("3")) {
+					
+					System.out.println("How much you want to raise by?");
+					int user_raise_amt = Integer.parseInt(user_input.nextLine());
+					
+					user.bid(user_raise_amt, george.retChips());
+					table.addToPot(user_raise_amt);
+					
+					while(!bothPlayersDone) {
+						
+						String comp_decision = george.decide(1);			// -1 for fold, 0 for call, 1 for raise
+						
+						if(comp_decision.toLowerCase().equals("1")) {
+							// computer - folds
 							george.fold();
 							// give user current pot amount
 							user.recPot(table.retPot());
@@ -109,21 +184,20 @@ public class PokerLogic {
 							return false;
 							
 						} else if(comp_decision.toLowerCase().equals("2")) {
-							
-							// call - show flop
+							// computer calls - show flop
 							george.call();
-							george.bid(user_bid_amt, user.retChips());
-							table.addToPot(user_bid_amt);
+							george.bid(user_raise_amt, user.retChips());
+							table.addToPot(user_raise_amt);
 							bothPlayersDone = true;
+							return true;
 							
 						} else if(comp_decision.toLowerCase().equals("3")) {
-							
-							// raise - ask computer to fold, raise or call
+							// computer raises
 							
 							int comp_raise = george.howMuchToRaise();
 							
-							george.bid(user_bid_amt, user.retChips());
-							table.addToPot(user_bid_amt);
+							george.bid(user_raise_amt, user.retChips());
+							table.addToPot(user_raise_amt);
 							george.bid(comp_raise, user.retChips());
 							table.addToPot(comp_raise);
 							
@@ -133,8 +207,7 @@ public class PokerLogic {
 							String user_move = user_input.nextLine();
 							
 							if(user_move.toLowerCase().equals("1")) {
-								
-								// user folds
+								// user fold
 								user.fold();
 								// give computer current pot amount
 								george.recPot(table.retPot());
@@ -143,64 +216,52 @@ public class PokerLogic {
 								return false;
 								
 							} else if(user_move.toLowerCase().equals("2")) {
-								// user calls
+								// user call
 								user.call();
 								user.bid(comp_raise, george.retChips());
 								// add raised amount from user to table pot
 								table.addToPot(comp_raise);
 								bothPlayersDone = true;
+								return true;
 								
 							} else if(user_move.toLowerCase().equals("3")) {
-								// user raises
+								// user raise
 								System.out.println("How much do you want to raise by? " + " You have: " + user.retChips() + " Pot amount: " + table.retPot());
-								String user_raise_amt = user_input.nextLine();
+								int user_raise_amt2 = Integer.parseInt(user_input.nextLine());
 								
 								user.bid(comp_raise, george.retChips());
 								table.addToPot(comp_raise);
 								user.raise();
-								user.bid(Integer.parseInt(user_raise_amt), george.retChips());		// this will have to change and have the computer do it instead
-								table.addToPot(Integer.parseInt(user_raise_amt));
+								user.bid(user_raise_amt2, george.retChips());
+								table.addToPot(user_raise_amt2);
+								
 							}
-							
-							
-						} else {
-							System.out.println("Restart program you typed something invalid");
 						}
 						
 					}
 					
 					return true;
 					
-					// you need to work on
 				} else {
 					System.out.println("Restart game you typed in something invalid");
 				}
-			
-				// player bids
-				// computer can fold, call, or raise
-				// if fold - player gets current pot
-				// if raise - ask player if he wants to fold, call or raise
-					// the 2 line above can repeat**
-				// add bids to pot
-				// show flop
-//			}
-				return false;
+
+			return false;
 		}
 			
-			String comp_move = george.decide(0);
+		String comp_move = george.decide(0);
 				
-			if(!comp_move.equals("1")) {
-	 
-		  /** BUG:  flop gets called twice in one round */
-				// show flop, turn or river
+		if(!comp_move.equals("1")) {
+	
+		// show flop, turn or river
 				 
-				if(specific_round.equals("flop")) {
-					table.flop();
-				} else if(specific_round.equals("turn")) {
-					table.turn();
-				} else if(specific_round.equals("river")) { 
-					table.river();
-				} 	
+		if(specific_round.equals("flop")) {
+			table.flop();
+		} else if(specific_round.equals("turn")) {
+			table.turn();
+		} else if(specific_round.equals("river")) { 
+			table.river();
+		} 	
 				
 				// computer bids
 				

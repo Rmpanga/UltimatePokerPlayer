@@ -142,4 +142,11 @@ public class Computer {
 		
 	}
 	
+	/*
+	 *  Computer checks
+	 */
+	public void check() {
+		
+	}
+	
 }
