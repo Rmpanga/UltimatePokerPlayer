@@ -119,6 +119,24 @@ public class Dealer {
 		
 		} else {
 			// this will handle when the computer or play doesn't have enough to pay full ante - will have to figure out logic to pay only specific amount
+			
+			if (user.retChips() < ante && george.retChips() < ante){ //Should never be called
+				System.out.println("No player can afford the ante, we are going all in folks");
+				user.payAnte(user.retChips());
+				george.payAnte(george.retChips());
+				
+				
+				
+			}
+			else if ( user.retChips() < ante){
+				System.out.println("User cannot afford the ANTE, going all in ");
+				user.payAnte(user.retChips());
+			}
+			else if (george.retChips() < ante){
+				george.payAnte(user.retChips());
+				System.out.println("George cannot afford the ANTE, going all in ");
+
+			}
 		}
 		
 		System.out.println("Distributes cards to player and computer");
@@ -132,7 +150,7 @@ public class Dealer {
 			if(PokerLogic.flopRound(players_turn, george, user, user_input, new_table)) {
 				if(PokerLogic.turnRound(players_turn, george, user, user_input, new_table)) {
 					if(PokerLogic.riverRound(players_turn, george, user, user_input, new_table)) {
-						
+						//DETERMINE WINNER 
 					} else {
 						
 					}
