@@ -66,7 +66,7 @@ public class PokerLogic {
 			
 			//If one player is ALL IN keep returning true
 //			if (user.retChips() > 0 && george.retChips() > 0){ 							// this will need to be removed here
-				System.out.println("Do you want to fold, check, or raise (Type '1' = fold '' = check '')");
+				System.out.println("Do you want to fold, check, or raise (Type '1' = fold '2' = check '3' = raise)");
 //				System.out.println("Do you want to bid or fold? (Type '1' = fold '2' = bid)");
 				// player can fold, call, or raise
 				String user_decision = user_input.nextLine();
@@ -79,6 +79,10 @@ public class PokerLogic {
 					return false;
 					
 				} else if(user_decision.toLowerCase().equals("2")) {
+					
+				} 
+				
+				else if(user_decision.toLowerCase().equals("2")) {
 				
 					System.out.println("How much do you want to bid?");
 					int user_bid_amt = Integer.parseInt(user_input.nextLine());
