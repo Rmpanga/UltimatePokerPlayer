@@ -105,6 +105,14 @@ public class Computer {
 	}
 	
 	/*
+	 * Computer raise amount
+	 */
+	public int howMuchToRaise() {
+		return 20;
+	}
+	
+	
+	/*
 	 * Computer receives pot from table
 	 */
 	public void recPot(int amount) {
