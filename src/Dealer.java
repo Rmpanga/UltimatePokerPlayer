@@ -14,7 +14,7 @@ public class Dealer {
 	
 	public static int ante = 20; 
 	public static final int start_chip_amt = 5000;
-	public static boolean players_turn = false;
+	public static boolean players_turn = true;
 	
 	/* @Tested
 	 * Distribute hands after shuffling the deck

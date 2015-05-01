@@ -55,6 +55,13 @@ public class User {
 	}
 	
 	/*
+	 * User checks
+	 */
+	public void check() {
+		
+	}
+	
+	/*
 	 * Amount user wants to bid
 	 */
 	public int wantToBid() {
