@@ -66,14 +66,16 @@ public class PokerLogic {
 			
 			//If one player is ALL IN keep returning true
 //			if (user.retChips() > 0 && george.retChips() > 0){ 							// this will need to be removed here
-			
-				System.out.println("Do you want to bid or fold? (Type '1' = fold '2' = bid)");
+				System.out.println("Do you want to fold, check, or raise (Type '1' = fold '' = check '')");
+//				System.out.println("Do you want to bid or fold? (Type '1' = fold '2' = bid)");
 				// player can fold, call, or raise
 				String user_decision = user_input.nextLine();
 			
 				if(user_decision.toLowerCase().equals("1")) {
 					// computer receives pot amount
 					// reset the pot
+					george.recPot(table.retPot());
+					table.resetPot();
 					return false;
 					
 				} else if(user_decision.toLowerCase().equals("2")) {
@@ -87,6 +89,7 @@ public class PokerLogic {
 					System.out.println("You bid " + user.wantToBid());																	
 					// I think there has to be an if and else statement here because what happens if didCompBid returns false ** problem here
 					table.addToPot(user.wantToBid());
+					
 					while(!bothPlayersDone) {
 						
 						String comp_decision = george.decide(1);						// put -1 for fold, 0 for call, and 1 for raise
@@ -120,6 +123,7 @@ public class PokerLogic {
 							george.bid(comp_raise, user.retChips());
 							table.addToPot(comp_raise);
 							
+							System.out.println("Computer raised by " + comp_raise);
 							System.out.println("Do you want to fold, call, or raise? (Type '1' = fold, '2' = call, or '3' = raise) ");
 							// player can fold, call, or raise
 							String user_move = user_input.nextLine();
@@ -190,7 +194,7 @@ public class PokerLogic {
 					table.flop();
 				} else if(specific_round.equals("turn")) {
 					table.turn();
-				} else if(specific_round.equals("river")) {
+				} else if(specific_round.equals("river")) { 
 					table.river();
 				} 	
 				
@@ -233,6 +237,7 @@ public class PokerLogic {
 						// raise - ask computer to fold, raise or call
 						System.out.println("How much do you want to raise by? " + " You have: " + user.retChips() + " Pot amount: " + table.retPot());
 						String user_raise_amt = user_input.nextLine();
+						
 						user.bid(george.wantToBid(), george.retChips());
 						table.addToPot(george.wantToBid());
 						user.bid(Integer.parseInt(user_raise_amt), george.retChips());
@@ -261,6 +266,7 @@ public class PokerLogic {
 						} else if(comp_decision.toLowerCase().equals("3")) {
 							// computer raises
 							// you have to fix this
+							System.out.println("Computer raises by " + george.wantToBid());
 							george.bid(Integer.parseInt(user_raise_amt), user.retChips());
 							table.addToPot(Integer.parseInt(user_raise_amt));
 							george.raise();

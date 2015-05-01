@@ -81,7 +81,7 @@ public class Computer {
 		
 		
 		chips-=amount;
-		comp_bid = amount;
+//		comp_bid = amount;
 		
 		// user doesn't have same bid amount
 		// computer needs to lower it or force the other player to go all in
@@ -94,12 +94,14 @@ public class Computer {
 		// you will have to have the computer do calculations here
 		int test1 = test;
 		
-		if(test1 < 0) {
+		if(test1 == -1) {
 			return "1";					// this means fold
 		} else if(test1 == 0) {
 			return "2";					// this means call
-		} else {
+		} else if(test1 == 1) {
 			return "3";					// this means raise
+		} else {
+			return "4";					// this means check
 		}
 		
 	}
