@@ -13,7 +13,7 @@ public class Dealer {
 	
 	public static int ante = 20; 
 	public static final int start_chip_amt = 5000;
-	public static boolean players_turn = false;
+	public static boolean players_turn = true;
 	static final HandEvaluator evaluator = new HandEvaluator();
 
 	/* @Tested
@@ -153,16 +153,18 @@ public class Dealer {
 			/*
 			 * Worry about the stuff below second
 			 */
-			if(PokerLogic.initRound(players_turn, george, user, user_input, new_table)) {
-				if(PokerLogic.flopRound(players_turn, george, user, user_input, new_table)) {
-					if(PokerLogic.turnRound(players_turn, george, user, user_input, new_table)) {
-						if(PokerLogic.riverRound(players_turn, george, user, user_input, new_table)) {
+			if(PokerLogic.initRound(players_turn, george, user, user_input, new_table, evaluator)) {
+				if(PokerLogic.flopRound(players_turn, george, user, user_input, new_table, evaluator)) {
+					if(PokerLogic.turnRound(players_turn, george, user, user_input, new_table, evaluator)) {
+						if(PokerLogic.riverRound(players_turn, george, user, user_input, new_table, evaluator)) {
 							//DETERMINE WINNER 
 							System.out.println("George's hand " +george.getHand().toString());
 							System.out.println("User hand " + user.getHand().toString());
 							
 							int winner = evaluator.compareHands(george.getHand(), user.getHand());
-						
+							
+//							evaluator.rankHand(george.getHand());
+							
 							if (winner == 1){
 								String nameOfHand = evaluator.nameHand(george.getHand());
 								System.out.println("George wins, with a " + nameOfHand);

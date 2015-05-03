@@ -5,45 +5,51 @@ public class PokerLogic {
 	/*
 	 * Handles the final round, bids, etc.
 	 */
-	public static boolean initRound(boolean player, Computer george, User user, Scanner user_input, Table table) {
+	public static boolean initRound(boolean player, Computer george, User user, Scanner user_input, Table table, HandEvaluator evaluator) {
 		// You have to handle when there are no chips from one person, or both people
 		System.out.println();
 		System.out.println(" --------------------- Initial Round --------------------- ");
-		return round(player, george, user, user_input, table, "init");
+		Network bayes_network = new Network();
+		
+		return round(player, george, user, user_input, table, bayes_network, evaluator, "init");
 	}
 	
 	/*
 	 * Handles the flop round, bids, etc.
 	 */
-	public static boolean flopRound(boolean player, Computer george, User user, Scanner user_input, Table table) {
+	public static boolean flopRound(boolean player, Computer george, User user, Scanner user_input, Table table, HandEvaluator evaluator) {
 		// You have to handle when there are no chips from one person, or both people
 		System.out.println();
 		System.out.println(" --------------------- Flop Round --------------------- ");
-		return round(player, george, user, user_input, table, "flop");
+		Network bayes_network = new Network();
+		return round(player, george, user, user_input, table, bayes_network, evaluator, "flop");
 	}
 	
 	/*
 	 * Handles the turn round, bids, etc.
 	 */
-	public static boolean turnRound(boolean player, Computer george, User user, Scanner user_input, Table table) {
+	public static boolean turnRound(boolean player, Computer george, User user, Scanner user_input, Table table, HandEvaluator evaluator) {
 		// You have to handle when there are no chips from one person, or both people
 		System.out.println(" --------------------- Turn Round --------------------- ");
-		return round(player, george, user, user_input, table, "turn");
+		Network bayes_network = new Network();
+		return round(player, george, user, user_input, table, bayes_network, evaluator, "turn");
 	}
 	
 	/*
 	 * Handles the river round, bids, etc.
 	 */
-	public static boolean riverRound(boolean player, Computer george, User user, Scanner user_input, Table table) {
+	public static boolean riverRound(boolean player, Computer george, User user, Scanner user_input, Table table, HandEvaluator evaluator) {
 		// You have to handle when there are no chips from one person, or both people
 		System.out.println(" --------------------- River Round --------------------- ");
-		return round(player, george, user, user_input, table, "river");
+		Network bayes_network = new Network();
+		return round(player, george, user, user_input, table, bayes_network, evaluator, "river");
 	}
 	
 	
-	public static boolean round(boolean player, Computer george, User user, Scanner user_input, Table table, String specific_round) {
+	public static boolean round(boolean player, Computer george, User user, Scanner user_input, Table table, Network bayes_network, HandEvaluator evaluator, String specific_round) {
 		
 		boolean bothPlayersDone = false;
+		double bestRank;
 		
 		if(player) {
 			// show flop, turn or river
@@ -91,9 +97,25 @@ public class PokerLogic {
 					int user_raised_bid = 0;
 					// user checks
 					user.check();
-					
+					System.out.println("HEREE");
 					while(!bothPlayersDone){
-						String comp_decision = george.decide(1);								// put -1 for fold, 0 for check, 2 for check,  1 for raise
+						if(george.retHand().size() == 2) {
+							bestRank = 39767.0;
+						} else {
+							bestRank = 2970357.0;
+						}
+						System.out.println("here");
+						System.out.println("Hand rank: " + evaluator.rankHand(george.getHand()));
+						
+						double rank_of_hand;
+						if(george.retHand().size() == 2) {
+							rank_of_hand = ((double) (8.0 * evaluator.rankHand(george.getHand())) / bestRank);
+						} else {
+							rank_of_hand = ((double) evaluator.rankHand(george.getHand()) / bestRank);
+						}
+						System.out.println(rank_of_hand);
+						bayes_network.update(rank_of_hand, (double) user.retChips(), (double) Dealer.start_chip_amt*2);
+						String comp_decision = george.decide(bayes_network);		//TODO							// put -1 for fold, 0 for check, 2 for check,  1 for raise
 						
 						if(comp_decision.toLowerCase().equals("1")) {
 							System.out.println("Computer decides to fold");
@@ -205,8 +227,14 @@ public class PokerLogic {
 					table.addToPot(user_raise_amt);
 					
 					while(!bothPlayersDone) {
-						
-						String comp_decision = george.decide(1);			// -1 for fold, 0 for call, 1 for raise
+						if(george.retHand().size() == 2) {
+							bestRank = 39767.0;
+						} else {
+							bestRank = 2970357.0;
+						}
+						double rank_of_hand = (double) evaluator.rankHand(george.getHand()) / bestRank ;
+						bayes_network.update(rank_of_hand, (double) user.retChips(), (double) Dealer.start_chip_amt*2);						
+						String comp_decision = george.decide(bayes_network);	//TODO			// -1 for fold, 0 for call, 1 for raise
 						
 						if(comp_decision.toLowerCase().equals("1")) {
 							// computer - folds
@@ -315,7 +343,14 @@ public class PokerLogic {
 		user.showCards();
 		System.out.println();
 		
-		String comp_move = george.decide(2);											// -1 for fold, 2 for check, and 1 for raise
+		if(george.retHand().size() == 2) {
+			bestRank = 39767.0;
+		} else {
+			bestRank = 2970357.0;
+		}
+		double rank_of_hand = (double) evaluator.rankHand(george.getHand()) / bestRank ;
+		bayes_network.update(rank_of_hand, (double) user.retChips(), (double) Dealer.start_chip_amt*2);		
+		String comp_move = george.decide(bayes_network);	// TODO										// -1 for fold, 2 for check, and 1 for raise
 				
 		if(comp_move.toLowerCase().equals("1")) {
 			System.out.println("Computer decides to fold");
@@ -381,8 +416,14 @@ public class PokerLogic {
 						user.bid(george_raised_bid, george.retChips());
 						table.addToPot(george_raised_bid);
 					}
-					
-					String comp_decision = george.decide(1);							// -1 for fold, 0 for call, 1 for raise
+					if(george.retHand().size() == 2) {
+						bestRank = 39767.0;
+					} else {
+						bestRank = 2970357.0;
+					}
+					double rank_hand = (double) evaluator.rankHand(george.getHand()) / bestRank ;
+					bayes_network.update(rank_hand, (double) user.retChips(), (double) Dealer.start_chip_amt*2);					
+					String comp_decision = george.decide(bayes_network);	// TODO						// -1 for fold, 0 for call, 1 for raise
 					
 					if(comp_decision.toLowerCase().equals("1")) {
 						System.out.println("Computer decides to fold");
@@ -479,7 +520,16 @@ public class PokerLogic {
 					user.bid(user_raise_amt, george.retChips());
 					table.addToPot(user_raise_amt);
 					
-					String comp_move2 = george.decide(1);					// -1 for fold, 0 for call, 1 for raise
+					
+					if(george.retHand().size() == 2) {
+						bestRank = 39767.0;
+					} else {
+						bestRank = 2970357.0;
+					}
+					double rank_hand = (double) evaluator.rankHand(george.getHand()) / bestRank ;
+					bayes_network.update(rank_hand, (double) user.retChips(), (double) Dealer.start_chip_amt*2);					
+					String comp_move2 = george.decide(bayes_network);	//TODO				// -1 for fold, 0 for call, 1 for raise
+					
 					System.out.println("Here");
 					if(comp_move2.equals("1")) {
 						System.out.println("Computer decides to fold");

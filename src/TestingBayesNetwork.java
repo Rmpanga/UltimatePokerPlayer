@@ -4,39 +4,33 @@ import BayesianNetworks.*;
 // 2970357 - best of 5 cards option - has to be used in flop, turn, and river round
 
 // P(winflop) = P(hand_strength) * (1 - P(opponent_strength))
-// P(opponent_strength) = lambda(opponents_chips / total_chips)
+// P(opponent_strength) = lambda(bet / your_chips) +  lambda(bet/ opponent_chips) + lambda(opponents_chips / total_chips)
 // lambda = 1/3
 
 public class TestingBayesNetwork extends BayesNet {
-	
-	
-	public static double[] probOfWinningRound(double hand_strength, double opponents_strength) {
-		double[] result = new double[2];
-		result[0] = hand_strength * (1 - opponents_strength);
-		System.out.println(result[0]);
-		result[1] = (1 - result[0]);
-		System.out.println(result[1]);
-		return result;
-	} 
 	
 	public static double[] calcOpponentStrength(double opponents_chips, double total_chips) {
 		double[] result = new double[2];
 		
 		result[0] = opponents_chips/total_chips;
-		System.out.println(result[0]);
 		result[1] = 1-result[0];
-		System.out.println(result[1]);
 		return result;
 	}
 	
 	public static double[] calcHandStrength() {
 		double[] result = new double[2];
-		// need to do
 		result[0] = 0.4;
 	    result[1] = 0.6;
 		
 		return result;
 	}
+	
+	public static double[] probOfWinningRound(double hand_strength, double opponents_strength) {
+		double[] result = new double[2];
+		result[0] = hand_strength * (1 - opponents_strength);
+		result[1] = (1 - result[0]);
+		return result;
+	} 
 	
 	public static void main(String[] args) {
 		DiscreteVariable bowel_problem = new DiscreteVariable("bowel-problem", DiscreteVariable.CHANCE, new String[] {"true", "false"});

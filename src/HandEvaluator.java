@@ -18,18 +18,18 @@ public class HandEvaluator {
 
    public static void main(String args[]){
        Hand hand1 = new Hand("Kd 8c 9c Tc Jc Qc Ad");
-       Hand hand2 = new Hand("7c 2d");
+       Hand hand2 = new Hand("7h 2h");
 
        HandEvaluator handEval = new HandEvaluator();
 
        System.out.println(handEval.getBest5CardHand(hand1));
        System.out.println(handEval.getBest5CardHand(hand2));
 
-       System.out.println(handEval.rankHand(hand1));
+//       System.out.println(handEval.rankHand(hand1));
        System.out.println(handEval.rankHand(hand2));
 
-       System.out.println(handEval.nameHand(hand1));
-       System.out.println(handEval.nameHand(hand2));
+//       System.out.println(handEval.nameHand(hand1));
+//       System.out.println(handEval.nameHand(hand2));
        
       System.out.println(handEval.compareHands(hand1, hand2));
 

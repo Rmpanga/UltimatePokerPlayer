@@ -117,19 +117,34 @@ public class Computer {
 	/*
 	 * Computer decides to fold, call, or raise
 	 */
-	public String decide(int test) {				// you will eventually remove test and have the computer decide on its own
-		// you will have to have the computer do calculations here
-		int test1 = test;
+	public String decide(Network bayes_network) {				// you will eventually remove test and have the computer decide on its own
+		String result = bayes_network.evaluate();
 		
-		if(test1 == -1) {
-			return "1";					// this means fold
-		} else if(test1 == 0) {
-			return "2";					// this means call
-		} else if(test1 == 1) {
-			return "3";					// this means raise
-		} else {
-			return "4";					// this means check
+		if(result.toLowerCase().equals("fold")) {
+			// fold - 1
+			return "1";
+		} else if(result.toLowerCase().equals("call")) {
+			// call - 2
+			return "2";
+		} else if(result.toLowerCase().equals("raise")) {
+			// raise - 3
+			return "3";
 		}
+		// check - 4
+		return "4";
+		// you will have to have the computer do calculations here
+//		int test1 = test;
+//		
+//		if(test1 == -1) {
+//			return "1";					// this means fold
+//		} else if(test1 == 0) {
+//			return "2";					// this means call
+//		} else if(test1 == 1) {
+//			return "3";					// this means raise
+//		} else {
+//			return "4";					// this means check
+//		}
+//		
 		
 	}
 	
