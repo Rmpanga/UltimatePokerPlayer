@@ -1,6 +1,10 @@
 import BayesianNetworks.*;
 
-// 2970357
+// 39767 - best of 2 cards option
+// 2970357 - best of 5 cards option
+
+// P(a) = (# rank for the first 2 cards human has) / 39767
+// P(b|a) = 
 
 public class TestingBayesNetwork extends BayesNet {
 	
@@ -10,8 +14,6 @@ public class TestingBayesNetwork extends BayesNet {
 		 */
 		DiscreteVariable opponent_move = new DiscreteVariable("opponent_move", DiscreteVariable.CHANCE, new String[] {"true" , "false"});
 		DiscreteFunction opponent_move_prob = new DiscreteFunction( new DiscreteVariable[] {opponent_move}, new double[] {0.3, 1.0});
-		
-	
 		
 		/*
 		 * Bayesian node for hand_strength
