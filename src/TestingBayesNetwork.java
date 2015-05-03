@@ -10,21 +10,36 @@ import BayesianNetworks.*;
 public class TestingBayesNetwork extends BayesNet {
 	
 	
-	public static double probOfWinningRound() {
-		return 0.0;
+	public static double[] probOfWinningRound(double hand_strength, double opponents_strength) {
+		double[] result = new double[2];
+		result[0] = hand_strength * (1 - opponents_strength);
+		System.out.println(result[0]);
+		result[1] = (1 - result[0]);
+		System.out.println(result[1]);
+		return result;
 	} 
+	
+	public static double[] calcOpponentStrength(double opponents_chips, double total_chips) {
+		double[] result = new double[2];
+		
+		result[0] = opponents_chips/total_chips;
+		System.out.println(result[0]);
+		result[1] = 1-result[0];
+		System.out.println(result[1]);
+		return result;
+	}
+	
+	public static double[] calcHandStrength() {
+		double[] result = new double[2];
+		// need to do
+		result[0] = 0.4;
+	    result[1] = 0.6;
+		
+		return result;
+	}
 	
 	public static void main(String[] args) {
 		DiscreteVariable bowel_problem = new DiscreteVariable("bowel-problem", DiscreteVariable.CHANCE, new String[] {"true", "false"});
-		
-//		System.out.println(bowel_problem.get_explanation_index());		// -1
-//		System.out.println(bowel_problem.get_index());					// 0
-//		System.out.println(bowel_problem.get_name());					// bowel-problem
-//		System.out.println(bowel_problem.get_observed_index());			// -1
-//		System.out.println(bowel_problem.get_type());					// 0
-//		System.out.println(bowel_problem.is_observed());				// false
-//		System.out.println(bowel_problem.is_explanation());				// false
-//		System.out.println(bowel_problem.get_values());
 		
 		DiscreteVariable dog_out = new DiscreteVariable("dog-out", DiscreteVariable.CHANCE, new String[] {"true","false"});
 
@@ -40,49 +55,35 @@ public class TestingBayesNetwork extends BayesNet {
 		/*
 		 * Bayesian node for opponent_move
 		 */
-		DiscreteVariable opponent_move = new DiscreteVariable("opponent_move", DiscreteVariable.CHANCE, new String[] {"true" , "false"});
-		DiscreteFunction opponent_move_prob = new DiscreteFunction( new DiscreteVariable[] {opponent_move}, new double[] {0.3, 1.0});
+		DiscreteVariable opponent_strength = new DiscreteVariable("opponent_move", DiscreteVariable.CHANCE, new String[] {"strong" , "weak"});
+		double[] opponent_strength_calc = calcOpponentStrength(3000.0, 9000.0);
+		DiscreteFunction opponent_strength_prob = new DiscreteFunction( new DiscreteVariable[] {opponent_strength}, new double[] {opponent_strength_calc[0], opponent_strength_calc[1]});
 		
-	
+		System.out.println(opponent_strength_prob.get_value(0));
+		System.out.println(opponent_strength_prob.get_value(1));
+
 		
 		/*
 		 * Bayesian node for hand_strength
 		 */
-		DiscreteVariable hand_strength = new DiscreteVariable("hand_strength", DiscreteVariable.CHANCE, new String[] {"true", "false"});
-		DiscreteFunction hand_strength_prob = new DiscreteFunction( new DiscreteVariable[] {hand_strength}, new DiscreteVariable[] {opponent_move},  new double[] {0.1, 0.2, 0.3, 0.4});
+		DiscreteVariable hand_strength = new DiscreteVariable("hand_strength", DiscreteVariable.CHANCE, new String[] {"strong", "weak"});
+		double[] hand_strength_calc = calcHandStrength();
+		DiscreteFunction hand_strength_prob = new DiscreteFunction( new DiscreteVariable[] {hand_strength}, new double[] {hand_strength_calc[0], hand_strength_calc[1]});
 		
-		
-		
-		
-		
-		
-		
+		System.out.println(hand_strength_prob.get_value(0));
+		System.out.println(hand_strength_prob.get_value(1));
+
 		
 		/*
-		 *  Bayesian node for win_flop_round
+		 * Bayesian node for winning any round
 		 */
-		DiscreteVariable win_flop_round = new DiscreteVariable("win_flop_round", DiscreteVariable.CHANCE, new String[] {"true", "false"});
-		DiscreteFunction win_flop_round_prob = new DiscreteFunction( new DiscreteVariable[] {win_flop_round}, new DiscreteVariable[] {hand_strength, opponent_move}, new double[] {} );
 		
+		DiscreteVariable win_round = new DiscreteVariable("round", DiscreteVariable.CHANCE, new String[] {"win", "lose"});
+		double[] win_round_calc = probOfWinningRound(hand_strength_calc[0], opponent_strength_calc[0]);
+		DiscreteFunction win_round_prob = new DiscreteFunction(new DiscreteVariable[] {win_round}, new double[] {win_round_calc[0], win_round_calc[1]});
 		
-		/*
-		 * Bayesian node for win_turn_round
-		 */
-		DiscreteVariable win_turn_round = new DiscreteVariable("win_turn_round", DiscreteVariable.CHANCE, new String[] {"true", "false"});
-		DiscreteFunction win_turn_round_prob = new DiscreteFunction( new DiscreteVariable[] {win_turn_round}, new DiscreteVariable[] {win_flop_round, hand_strength, opponent_move}, new double[] {});
-		
-		
-		/*
-		 * Bayesian node for win_river_round
-		 */
-		DiscreteVariable win_river_round = new DiscreteVariable("win_river_round", DiscreteVariable.CHANCE, new String[] {"true", "false"});
-		DiscreteFunction win_river_round_prob = new DiscreteFunction( new DiscreteVariable[] {win_river_round}, new DiscreteVariable[] {win_turn_round, win_flop_round, hand_strength, opponent_move}, new double[] {});
-		
-		
-		// testing
-		
-		
-		
+		System.out.println(win_round_prob.get_value(0));
+		System.out.println(win_round_prob.get_value(1));
 	}
 
 }
