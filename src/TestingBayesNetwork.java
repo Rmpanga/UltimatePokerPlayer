@@ -1,81 +1,18 @@
 import BayesianNetworks.*;
 
-// 39767 - best of 2 cards option
-// 2970357 - best of 5 cards option
+// 39767 - best of 2 cards option - has to be used in the first round
+// 2970357 - best of 5 cards option - has to be used in flop, turn, and river round
 
-// P(a) = (# rank for the first 2 cards human has) / 39767
-// P(b|a) = 
+// P(winflop) = P(hand_strength) * (1 - P(opponent_strength))
+// P(opponent_strength) = lambda(opponents_chips / total_chips)
+// lambda = 1/3
 
 public class TestingBayesNetwork extends BayesNet {
 	
-	public TestingBayesNetwork() {
-		/*
-		 * Bayesian node for opponent_move
-		 */
-		DiscreteVariable opponent_move = new DiscreteVariable("opponent_move", DiscreteVariable.CHANCE, new String[] {"true" , "false"});
-		DiscreteFunction opponent_move_prob = new DiscreteFunction( new DiscreteVariable[] {opponent_move}, new double[] {0.3, 1.0});
-		
-		/*
-		 * Bayesian node for hand_strength
-		 */
-		DiscreteVariable hand_strength = new DiscreteVariable("hand_strength", DiscreteVariable.CHANCE, new String[] {"true", "false"});
-		Double[] result = calcProbForTwoEvents();
-		DiscreteFunction hand_strength_prob = new DiscreteFunction( new DiscreteVariable[] {hand_strength}, new DiscreteVariable[] {opponent_move},  new double[] {0.1, 0.2, 0.3, 0.4});
-		
-		add( new DiscreteVariable[] {hand_strength});
-		add( new DiscreteFunction[] {hand_strength_prob});
-		
-		System.out.println();
-		
-		/*
-		 *  Bayesian node for win_flop_round
-		 */
-		DiscreteVariable win_flop_round = new DiscreteVariable("win_flop_round", DiscreteVariable.CHANCE, new String[] {"true", "false"});
-		DiscreteFunction win_flop_round_prob = new DiscreteFunction( new DiscreteVariable[] {win_flop_round}, new DiscreteVariable[] {hand_strength, opponent_move}, new double[] {} );
-		
-		
-		/*
-		 * Bayesian node for win_turn_round
-		 */
-		DiscreteVariable win_turn_round = new DiscreteVariable("win_turn_round", DiscreteVariable.CHANCE, new String[] {"true", "false"});
-		DiscreteFunction win_turn_round_prob = new DiscreteFunction( new DiscreteVariable[] {win_turn_round}, new DiscreteVariable[] {win_flop_round, hand_strength, opponent_move}, new double[] {});
-		
-		
-		/*
-		 * Bayesian node for win_river_round
-		 */
-		DiscreteVariable win_river_round = new DiscreteVariable("win_river_round", DiscreteVariable.CHANCE, new String[] {"true", "false"});
-		DiscreteFunction win_river_round_prob = new DiscreteFunction( new DiscreteVariable[] {win_river_round}, new DiscreteVariable[] {win_turn_round, win_flop_round, hand_strength, opponent_move}, new double[] {});
-		
-		
-		// testing
-		
-	}
 	
-	public static Double[] calcProbForTwoEvents() {
-		Double[]  result = new Double[4];
-		
-		
-		return result;
-	}
-	
-	public static Double[] calcProbForThreeEvents() {
-		Double[]  result = new Double[8];
-		
-		return result;
-	}
-	
-	public static Double[] calcProbForFourEvents() {
-		Double[]  result = new Double[16];
-		
-		return result;
-	}
-	
-	public static Double[] calcProbForFiveEvents() {
-		Double[]  result = new Double[32];
-		
-		return result;
-	}
+	public static double probOfWinningRound() {
+		return 0.0;
+	} 
 	
 	public static void main(String[] args) {
 		DiscreteVariable bowel_problem = new DiscreteVariable("bowel-problem", DiscreteVariable.CHANCE, new String[] {"true", "false"});
@@ -112,8 +49,14 @@ public class TestingBayesNetwork extends BayesNet {
 		 * Bayesian node for hand_strength
 		 */
 		DiscreteVariable hand_strength = new DiscreteVariable("hand_strength", DiscreteVariable.CHANCE, new String[] {"true", "false"});
-		Double[] result = calcProbForTwoEvents();
 		DiscreteFunction hand_strength_prob = new DiscreteFunction( new DiscreteVariable[] {hand_strength}, new DiscreteVariable[] {opponent_move},  new double[] {0.1, 0.2, 0.3, 0.4});
+		
+		
+		
+		
+		
+		
+		
 		
 		/*
 		 *  Bayesian node for win_flop_round
