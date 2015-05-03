@@ -1,87 +1,207 @@
-import java.util.ArrayList;
+//package ca.ualberta.cs.poker;
+
+/***************************************************************************
+Copyright (c) 2000:
+      University of Alberta,
+      Deptartment of Computing Science
+      Computer Poker Research Group
+
+    See "Liscence.txt"
+***************************************************************************/
+
 import java.util.Random;
 
+/**
+*  A Deck of 52 Cards which can be dealt and shuffled
+*  @author  Aaron Davidson
+*/
 
 public class Deck {
-	
-	public static final String[] possible_cards = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
-	public static final String[] possible_suits = {"clubs", "hearts", "spades", "diamonds"};
-	
+   public static final int NUM_CARDS = 52;
+   private static Card[] gCards = new Card[NUM_CARDS];
+   private static char position; // top of deck
+   private static Random r = new Random();
+   
+   /**
+    * Constructor.
+    */
+   public Deck() {
+      position = 0;
+      for (int i=0;i<NUM_CARDS;i++) {
+         gCards[i] = new Card(i);
+      }
+   }
+   
+   /**
+    * Constructor w/ shuffle seed.
+    * @param seed the seed to use in randomly shuffling the deck.
+    */
+   public Deck(long seed) {
+      this();
+      if (seed == 0) { 
+         seed = System.currentTimeMillis();
+      }
+      r.setSeed(seed);
+   }
+   
+   /**
+    * Places all cards back into the deck.
+    * Note: Does not sort the deck.
+    */
+   public synchronized void reset() { position = 0; }
+     
+   /**
+    * Shuffles the cards in the deck.
+    */
+   public synchronized void shuffleDeck() {
+      Card  tempCard;
+      int   i,j;
+      for (i=0; i<NUM_CARDS; i++) {
+         j = i + randInt(NUM_CARDS-i);
+         tempCard = gCards[j];
+         gCards[j] = gCards[i];
+         gCards[i] = tempCard;
+      }
+      position = 0;
+   }
+   
+   /**
+    * Obtain the next card in the deck.
+    * If no cards remain, a null card is returned
+    * @return the card dealt
+    */
+   public static synchronized Card deal() {
+      return (position < NUM_CARDS ? gCards[position++] : null);
+   }
+   
+   /**
+    * Obtain the next card in the deck.
+    * If no cards remain, a null card is returned
+    * @return the card dealt
+    */
+   public static synchronized Card dealCard() {
+      return extractRandomCard();
+   }
+   
+   /**
+    * Find position of Card in Deck.
+    */
+   public static  synchronized int findCard(Card c) {
+      int i = position;
+      int n = c.getIndex();
+      while (i < NUM_CARDS && n != gCards[i].getIndex())
+         i++;
+      return (i < NUM_CARDS ? i : -1);
+   }
+   
+   private static synchronized int findDiscard(Card c) {
+      int i = 0;
+      int n = c.getIndex();
+      while (i < position && n != gCards[i].getIndex())
+         i++;  
+      return (n == gCards[i].getIndex() ? i : -1);
+   }
+   
+   /**
+    * Remove all cards in the given hand from the Deck.
+    */
+   public static synchronized void extractHand(Hand h) {
+      for (int i=1;i<=h.size();i++)
+         extractCard(h.getCard(i));
+   }
+   
+   /**
+    * Remove a card from within the deck.
+    * @param c the card to remove.
+    */
+   public static synchronized void extractCard(Card c) {
+      int i = findCard(c);
+      if (i != -1) {
+         Card t = gCards[i];
+         gCards[i] = gCards[position];
+         gCards[position] = t;
+         position++;
+      } else {
+         System.err.println("*** ERROR: could not find card " + c);
+         Thread.currentThread().dumpStack();
+      }
+   }
+   
+   /**
+    * Remove and return a randomly selected card from within the deck.
+    */
+   public static  synchronized Card extractRandomCard() {
+      int pos = position+randInt(NUM_CARDS-position);
+      Card c = gCards[pos];
+      gCards[pos] = gCards[position];
+      gCards[position] = c;
+      position++;
+      return c;
+   }
+   
+   /**
+    * Return a randomly selected card from within the deck without removing it.  
+    */
+   public static synchronized Card pickRandomCard() {
+      return gCards[position+randInt(NUM_CARDS-position)];
+   }
+   
+   /**
+    * Place a card back into the deck.
+    * @param c the card to insert.
+    */
+   public static synchronized void replaceCard(Card c) {
+      int i = findDiscard(c);
+      if (i != -1) {
+         position--;
+         Card t = gCards[i];
+         gCards[i] = gCards[position];
+         gCards[position] = t;
+      }
+   }
+   
+   /**
+    * Obtain the position of the top card. 
+    * (the number of cards dealt from the deck)
+    * @return the top card index
+    */
+   public static synchronized int getTopCardIndex() {
+      return position;
+   }
+   
+   
+   /**
+    * Obtain the number of cards left in the deck
+    */
+   public static synchronized int cardsLeft() {
+      return NUM_CARDS-position;
+   }
+   
+   /**
+    * Obtain the card at a specific index in the deck.
+    * Does not matter if card has been dealt or not.
+    * If i < topCardIndex it has been dealt.
+    * @param i the index into the deck (0..51)
+    * @return the card at position i
+    */
+   public static synchronized Card getCard(int i) {    
+      return gCards[i];
+   }
+   
+   public String toString() {
+      StringBuffer s = new StringBuffer();
+      s.append("* ");
+      for (int i=0;i<position;i++)
+         s.append(gCards[i].toString()+" ");
+      s.append("\n* ");
+      for (int i=position;i<NUM_CARDS;i++)
+         s.append(gCards[i].toString()+" ");
+      return s.toString();
+   }
+   
+   private static int randInt(int range) {
+      return (int)(r.nextDouble()*range);
+   }
+    
 
-	
-	static ArrayList<Card> deck = new ArrayList<Card>(52);
-	
-	/*@Tested
-	 *  populates the deck accurately
-	 */
-	public static void populateDeck(){
-		
-		for (String card : possible_cards){
-			for (String suit : possible_suits){
-				deck.add(new Card(card, suit));
-			}
-		}
-	}
-	
-	/*@Tested
-	 * Shuffles Deck randomly
-	 */
-	
-	public static void shuffleDeck(){
-		ArrayList<Integer> indexes = new ArrayList<Integer>(52);
-		ArrayList<Card> shuffledDeck = new ArrayList<Card>(52);
-		Random r = new Random ();
-		
-		for (int x =0; x<deck.size(); x++){
-			indexes.add(x);
-		}
-		
-		
-		for (int j =0; j<52; j++){
-			//ystem.out.println("J: " + j);
-			boolean redo = true;
-			int rValue = r.nextInt(indexes.size());
-			shuffledDeck.add(deck.get(rValue));
-			indexes.remove(rValue);
-			deck.remove(rValue);
-		
-		}
-		deck = shuffledDeck;
-	}
-	
-	/**                                                                          DEBUG SECTION                                                                   **/
-	
-	
-
-	/*@Debug
-	 * 
-	 */
-	public static void printDeck(){
-		int count = 0;
-		for (Card card : deck){
-			
-			System.out.println(card.retValue() +"," + card.retSuit() +" " + count);
-		
-			
-			count++;
-		}
-		
-	}
-	
-
-	
-	/*@Debug
-	 * 
-	 */
-	
-	public static void main ( String [] args){
-		
-		populateDeck();
-		
-		System.out.println();
-		System.out.println("Shuffling the deck & Printing");
-		shuffleDeck();
-		printDeck();
-		
-	}
 }

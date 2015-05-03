@@ -44,19 +44,20 @@ public class Table {
 	 * Add specific amount of cards into the table for both players to see
 	 */
 	private void addCardsToTable(int num){
-	   
+		   
 		for(int j =0; j < num; j++){
-			Card card = Deck.deck.remove(0);
+			Card card = Deck.deal();
 			cards_on_table.add(card);
 	   }
 	}
-	
 	/* @Tested
 	 * Shows the current amount of cards on the table
 	 */
 	public void showCardsOnTable() {
 		for(Card entry : cards_on_table) {
-			System.out.print("[ " + entry.retValue() + ", " + entry.retSuit() + " ]  ");
+			System.out.print("[ " + entry.toString() + " ]  ");
+			
+			//System.out.print("[ " + entry.getRank() + ", " + entry.getSuit() + " ]  ");
 		}
 		System.out.println();
 	}

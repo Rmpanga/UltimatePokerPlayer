@@ -49,10 +49,19 @@ public class PokerLogic {
 			// show flop, turn or river
 			if(specific_round.equals("flop")) {
 				table.flop();
+				for (int j = 0; j< table.getCardsOnTable().size(); j++){
+					Card c = table.getCardsOnTable().get(j);
+					george.addCardToHand(c);
+					user.addCardToHand(c);
+				}
 			} else if(specific_round.equals("turn")) {
 				table.turn();
+				george.addCardToHand(table.getCardsOnTable().get(3));
+				user.addCardToHand(table.getCardsOnTable().get(3));
 			} else if(specific_round.equals("river")) {
 				table.river();
+				george.addCardToHand(table.getCardsOnTable().get(4));
+				user.addCardToHand(table.getCardsOnTable().get(4));
 			} 	
 			
 			System.out.println();
@@ -61,7 +70,7 @@ public class PokerLogic {
 			System.out.println();
 			
 			System.out.println("Pot Amount: " + table.retPot());
-			user.showHand();
+			user.showCards();
 			System.out.println();
 			
 			//If one player is ALL IN keep returning true
@@ -280,10 +289,21 @@ public class PokerLogic {
 		 
 		if(specific_round.equals("flop")) {
 			table.flop();
+			
+			for (int j = 0; j< table.getCardsOnTable().size(); j++){
+				Card c = table.getCardsOnTable().get(j);
+				george.addCardToHand(c);
+				user.addCardToHand(c);
+			}
 		} else if(specific_round.equals("turn")) {
 			table.turn();
+			table.turn();
+			george.addCardToHand(table.getCardsOnTable().get(3));
+			user.addCardToHand(table.getCardsOnTable().get(3));
 		} else if(specific_round.equals("river")) { 
 			table.river();
+			george.addCardToHand(table.getCardsOnTable().get(4));
+			user.addCardToHand(table.getCardsOnTable().get(4));
 		} 	
 		
 		System.out.println();
@@ -292,7 +312,7 @@ public class PokerLogic {
 		System.out.println();
 		
 		System.out.println("Pot Amount: " + table.retPot());
-		user.showHand();
+		user.showCards();
 		System.out.println();
 		
 		String comp_move = george.decide(2);											// -1 for fold, 2 for check, and 1 for raise

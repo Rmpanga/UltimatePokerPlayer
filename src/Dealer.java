@@ -14,7 +14,8 @@ public class Dealer {
 	public static int ante = 20; 
 	public static final int start_chip_amt = 5000;
 	public static boolean players_turn = false;
-	
+	static final HandEvaluator evaluator = new HandEvaluator();
+
 	/* @Tested
 	 * Distribute hands after shuffling the deck
 	 */
@@ -22,26 +23,37 @@ public class Dealer {
 		
 		if (player){
 			System.out.println("Player goes first");
-			Hand playerHand = new Hand(Deck.deck.remove(0) , Deck.deck.remove(1));
-			Hand compHand = new Hand(Deck.deck.remove(0), Deck.deck.remove(0));
+			Card c1 = Deck.deal();
+			Card c2 = Deck.deal();
+			Card c3 = Deck.deal();
+			Card c4 = Deck.deal();
 			
-			george.addHand(compHand);
-			user.addHand(playerHand);
 			
-			System.out.println("Player hand : " +playerHand.getCard1().retValue() + " " + playerHand.getCard1().retSuit() + " "+ playerHand.getCard2().retValue() + " " + playerHand.getCard2().retSuit());
-			System.out.println("Comp hand : " +compHand.getCard1().retValue() + " " + compHand.getCard1().retSuit() +" "+ compHand.getCard2().retValue() + " " + compHand.getCard2().retSuit());
-			return;
+			PlayerCards userCards = new PlayerCards(c1 , c3);
+			PlayerCards compCards = new PlayerCards(c2, c4);
+			
+			george.addPlayerCards(compCards);
+			user.addPlayerCards(userCards);
+			
+			System.out.println("Player hand : " +userCards.getCard1().toString() + " " +  userCards.getCard2().toString());
+			System.out.println("Comp hand : " +compCards.getCard1().toString() + " " + compCards.getCard2().toString());
 		}
 		else if (!player){
 			System.out.println("Computer goes first");
-			Hand compHand = new Hand(Deck.deck.remove(0) , Deck.deck.remove(1));
-			Hand playerHand = new Hand(Deck.deck.remove(0), Deck.deck.remove(0));
-
-			george.addHand(compHand);
-			user.addHand(playerHand);
+			Card c1 = Deck.deal();
+			Card c2 = Deck.deal();
+			Card c3 = Deck.deal();
+			Card c4 = Deck.deal();
 			
-			System.out.println("Comp hand : " +compHand.getCard1().retValue() + " " + compHand.getCard1().retSuit() +" "+ compHand.getCard2().retValue() + " " + compHand.getCard2().retSuit());
-			System.out.println("Player hand : " +playerHand.getCard1().retValue() + " " + playerHand.getCard1().retSuit() + " "+ playerHand.getCard2().retValue() + " " + playerHand.getCard2().retSuit());
+			
+			PlayerCards compHand = new PlayerCards(c1 , c3);
+			PlayerCards playerHand = new PlayerCards(c2, c4);
+
+			george.addPlayerCards(compHand);
+			user.addPlayerCards(playerHand);
+			
+			System.out.println("Comp hand : " +compHand.getCard1().toString() + compHand.getCard2().toString());
+			System.out.println("Player hand : " +playerHand.getCard1().toString() + " "+ playerHand.getCard2().toString());
 			return;
 		}	
 	}
@@ -51,17 +63,14 @@ public class Dealer {
 	 */
 	
 	public static void returnPlayerHandsToDeck(Computer george , User user){
-		Hand h1 = george.retHand();
-		Hand h2 = user.retHand();
+		PlayerCards h1 = george.retPlayerCards();
+		PlayerCards h2 = user.retPlayerCards();
 		
 		
-		george.addHand(null);
-		user.addHand(null);
-		Deck.deck.add(h1.card1);
-		Deck.deck.add(h1.card2);
-		
-		Deck.deck.add(h2.card1);
-		Deck.deck.add(h2.card2);
+		george.addPlayerCards(null);
+		user.addPlayerCards(null);
+		george.clearHand();
+		user.clearHand();
 		
 	}
 	
@@ -72,7 +81,6 @@ public class Dealer {
 	
 	public static void returnTableCardsToDeck(Table table){
 		
-		Deck.deck.addAll(table.getCardsOnTable());
 		table.clearTable();
 	}
 	
@@ -93,11 +101,11 @@ public class Dealer {
 		
 		System.out.println("Creating deck...");
 		// create deck
-		Deck.populateDeck();
+		Deck deck = new Deck();
 		
 		System.out.println("Shuffling deck...");
 		// shuffle deck
-		Deck.shuffleDeck();
+		deck.shuffleDeck();
 		
 		System.out.println("Creating table...");
 		// create table
@@ -150,6 +158,28 @@ public class Dealer {
 				if(PokerLogic.turnRound(players_turn, george, user, user_input, new_table)) {
 					if(PokerLogic.riverRound(players_turn, george, user, user_input, new_table)) {
 						//DETERMINE WINNER 
+						System.out.println("George's hand " +george.getHand().toString());
+						System.out.println("User hand " + user.getHand().toString());
+						
+						int winner = evaluator.compareHands(george.getHand(), user.getHand());
+					
+						if (winner == 1){
+							String nameOfHand = evaluator.nameHand(george.getHand());
+							System.out.println("George wins, with a " + nameOfHand);
+							///george.recPot(ta);
+							//int num = evaluator.rankHand(georgehand);
+							
+						}
+						else if (winner == 2){
+							String nameOfHand = evaluator.nameHand(user.getHand());
+							System.out.println(username + " wins, with a " + nameOfHand);
+						
+						}
+						else if (winner == 0){
+							System.out.println("Its a tie");
+						}
+						
+						
 					} else {
 						
 					}

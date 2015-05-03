@@ -2,6 +2,7 @@
 public class Computer {
 	
 	private String name;
+	private PlayerCards playerCards;
 	private Hand hand;
 	private int chips;
 	private int comp_bid = 10;
@@ -12,6 +13,7 @@ public class Computer {
 	public Computer(String name, int start_chips) {
 		this.name = name;
 		chips = start_chips;
+		hand = new Hand();
 	}
 	
 	/*
@@ -20,6 +22,31 @@ public class Computer {
 	public void addHand(Hand hand){
 		this.hand = hand;
 	}
+	
+	public void addCardToHand(Card card){
+		hand.addCard(card);
+	}
+	
+	public void addPlayerCards(PlayerCards pc){
+		this.playerCards = pc;
+		System.out.println(pc.card1);
+		System.out.println(pc.card2);
+		addCardToHand(pc.card1);
+		addCardToHand(pc.card2);
+	}
+	
+	
+	public void clearHand(){
+		hand.makeEmpty();
+	}
+	
+	/*
+	 * Return computer's hand back to dealer
+	 */
+	public PlayerCards retPlayerCards(){
+		return playerCards;
+	}
+	
 	
 	/*
 	 * Return computer's hand back to dealer
@@ -149,4 +176,8 @@ public class Computer {
 		
 	}
 	
+	public Hand getHand() {
+		// TODO Auto-generated method stub
+		return hand;
+	}
 }

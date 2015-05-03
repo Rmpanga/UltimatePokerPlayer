@@ -2,6 +2,7 @@
 public class User {
 	
 	private String name;
+	private PlayerCards playerCards;
 	private Hand hand;
 	private int chips;
 	private int user_bid;
@@ -12,22 +13,30 @@ public class User {
 	public User(String name, int start_chips) {
 		this.name = name;
 		chips = start_chips;
+		hand = new Hand();
 	}
 	
 	/*
 	 * Set hand to user's hand
 	 */
-	public void addHand(Hand hand) {
-		this.hand = hand;
+	public void addPlayerCards(PlayerCards pc) {
+		this.playerCards = pc;
+		
+		addCardToHand(pc.card1);
+		addCardToHand(pc.card2);
 	}
+	
 	
 	/*
 	 * Return user's hand back to dealer
 	 */
-	public Hand retHand(){
-		return hand;
+	public PlayerCards retPlayerCards(){
+		return playerCards;
 	}
 	
+	public void clearHand(){
+		hand.makeEmpty();
+	}
 	/* @Tested
 	 * Return user's chip amount
 	 */
@@ -102,11 +111,18 @@ public class User {
 	public void raise() {
 		//TODO
 	}
-	
 	/*
 	 * Displays User's hand
 	 */
-	public void showHand() {
-		System.out.println("[ " + hand.getCard1().retValue() + ", " + hand.getCard1().retSuit() + " ] , " + "[ " + hand.getCard2().retValue() + ", " + hand.getCard2().retSuit() + " ]  ");
+	public void showCards() {
+		System.out.println("[ " + playerCards.getCard1().toString() + " ] " + "[ " + playerCards.getCard2().toString() + " ]  ");
+	}
+
+	public void addCardToHand(Card card){
+		hand.addCard(card);
+	}
+	
+	public Hand getHand(){
+		return hand; 
 	}
 }
