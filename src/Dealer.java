@@ -131,9 +131,6 @@ public class Dealer {
 					System.out.println("No player can afford the ante, we are going all in folks");
 					user.payAnte(user.retChips());
 					george.payAnte(george.retChips());
-					
-					
-					
 				}
 				else if ( user.retChips() < ante){
 					System.out.println("User cannot afford the ANTE, going all in ");
@@ -195,6 +192,7 @@ public class Dealer {
 				
 			}
 			players_turn = !players_turn;
+			System.out.println("----------------------------------- New Round -----------------------------------");
 		}
 	}
 }

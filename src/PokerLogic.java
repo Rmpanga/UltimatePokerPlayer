@@ -97,23 +97,27 @@ public class PokerLogic {
 					int user_raised_bid = 0;
 					// user checks
 					user.check();
-					System.out.println("HEREE");
 					while(!bothPlayersDone){
-						if(george.retHand().size() == 2) {
+						double rank = evaluator.rankHand(george.getHand());
+//						double value = 0.0;
+						
+						if((george.retHand().size() == 2) && rank > 300000) {
 							bestRank = 39767.0;
+//							value = 0.8;
+						} else if((george.retHand().size() == 2) && rank < 300000) {
+							bestRank = 167; 
+//							value = 0.2;
 						} else {
 							bestRank = 2970357.0;
 						}
-						System.out.println("here");
-						System.out.println("Hand rank: " + evaluator.rankHand(george.getHand()));
-						
+						// if the computers hands are a pair
+//						System.out.println("Hand Evaluator Ranked: " + evaluator.rankHand(george.getHand()));
 						double rank_of_hand;
-						if(george.retHand().size() == 2) {
-							rank_of_hand = ((double) (8.0 * evaluator.rankHand(george.getHand())) / bestRank);
+						if(george.retHand().size() == 2) {															// this stuff could change
+							rank_of_hand = ((double) (evaluator.rankHand(george.getHand())) / bestRank);
 						} else {
 							rank_of_hand = ((double) evaluator.rankHand(george.getHand()) / bestRank);
 						}
-						System.out.println(rank_of_hand);
 						bayes_network.update(rank_of_hand, (double) user.retChips(), (double) Dealer.start_chip_amt*2);
 						String comp_decision = george.decide(bayes_network);		//TODO							// put -1 for fold, 0 for check, 2 for check,  1 for raise
 						
@@ -227,12 +231,26 @@ public class PokerLogic {
 					table.addToPot(user_raise_amt);
 					
 					while(!bothPlayersDone) {
-						if(george.retHand().size() == 2) {
+						double rank = evaluator.rankHand(george.getHand());
+//						double value = 0.0;
+						
+						if((george.retHand().size() == 2) && rank > 300000) {
 							bestRank = 39767.0;
+//							value = 0.8;
+						} else if((george.retHand().size() == 2) && rank < 300000) {
+							bestRank = 167; 
+//							value = 0.2;
 						} else {
 							bestRank = 2970357.0;
 						}
-						double rank_of_hand = (double) evaluator.rankHand(george.getHand()) / bestRank ;
+						// if the computers hands are a pair
+//						System.out.println("Hand Evaluator Ranked: " + evaluator.rankHand(george.getHand()));
+						double rank_of_hand;
+						if(george.retHand().size() == 2) {															// this stuff could change
+							rank_of_hand = ((double) (evaluator.rankHand(george.getHand())) / bestRank);
+						} else {
+							rank_of_hand = ((double) evaluator.rankHand(george.getHand()) / bestRank);
+						}
 						bayes_network.update(rank_of_hand, (double) user.retChips(), (double) Dealer.start_chip_amt*2);						
 						String comp_decision = george.decide(bayes_network);	//TODO			// -1 for fold, 0 for call, 1 for raise
 						
@@ -343,12 +361,26 @@ public class PokerLogic {
 		user.showCards();
 		System.out.println();
 		
-		if(george.retHand().size() == 2) {
+		double rank = evaluator.rankHand(george.getHand());
+//		double value = 0.0;
+		
+		if((george.retHand().size() == 2) && rank > 300000) {
 			bestRank = 39767.0;
+//			value = 0.8;
+		} else if((george.retHand().size() == 2) && rank < 300000) {
+			bestRank = 167; 
+//			value = 0.2;
 		} else {
 			bestRank = 2970357.0;
 		}
-		double rank_of_hand = (double) evaluator.rankHand(george.getHand()) / bestRank ;
+		// if the computers hands are a pair
+//		System.out.println("Hand Evaluator Ranked: " + evaluator.rankHand(george.getHand()));
+		double rank_of_hand;
+		if(george.retHand().size() == 2) {															// this stuff could change
+			rank_of_hand = ((double) (evaluator.rankHand(george.getHand())) / bestRank);
+		} else {
+			rank_of_hand = ((double) evaluator.rankHand(george.getHand()) / bestRank);
+		}
 		bayes_network.update(rank_of_hand, (double) user.retChips(), (double) Dealer.start_chip_amt*2);		
 		String comp_move = george.decide(bayes_network);	// TODO										// -1 for fold, 2 for check, and 1 for raise
 				
@@ -416,12 +448,26 @@ public class PokerLogic {
 						user.bid(george_raised_bid, george.retChips());
 						table.addToPot(george_raised_bid);
 					}
-					if(george.retHand().size() == 2) {
+					double rank2 = evaluator.rankHand(george.getHand());
+//					double value2 = 0.0;
+					
+					if((george.retHand().size() == 2) && rank2 > 300000) {
 						bestRank = 39767.0;
+//						value2 = 0.8;
+					} else if((george.retHand().size() == 2) && rank2 < 300000) {
+						bestRank = 167; 
+//						value2 = 0.2;
 					} else {
 						bestRank = 2970357.0;
 					}
-					double rank_hand = (double) evaluator.rankHand(george.getHand()) / bestRank ;
+					// if the computers hands are a pair
+//					System.out.println("Hand Evaluator Ranked: " + evaluator.rankHand(george.getHand()));
+					double rank_hand;
+					if(george.retHand().size() == 2) {															// this stuff could change
+						rank_hand = ((double) (evaluator.rankHand(george.getHand())) / bestRank);
+					} else {
+						rank_hand = ((double) evaluator.rankHand(george.getHand()) / bestRank);
+					}
 					bayes_network.update(rank_hand, (double) user.retChips(), (double) Dealer.start_chip_amt*2);					
 					String comp_decision = george.decide(bayes_network);	// TODO						// -1 for fold, 0 for call, 1 for raise
 					
@@ -521,12 +567,26 @@ public class PokerLogic {
 					table.addToPot(user_raise_amt);
 					
 					
-					if(george.retHand().size() == 2) {
+					double rank2 = evaluator.rankHand(george.getHand());
+//					double value2 = 0.0;
+					
+					if((george.retHand().size() == 2) && rank2 > 300000) {
 						bestRank = 39767.0;
+//						value2 = 0.8;
+					} else if((george.retHand().size() == 2) && rank2 < 300000) {
+						bestRank = 167; 
+//						value2 = 0.2;
 					} else {
 						bestRank = 2970357.0;
 					}
-					double rank_hand = (double) evaluator.rankHand(george.getHand()) / bestRank ;
+					// if the computers hands are a pair
+//					System.out.println("Hand Evaluator Ranked: " + evaluator.rankHand(george.getHand()));
+					double rank_hand;
+					if(george.retHand().size() == 2) {															// this stuff could change
+						rank_hand = ((double) (evaluator.rankHand(george.getHand())) / bestRank);
+					} else {
+						rank_hand = ((double) evaluator.rankHand(george.getHand()) / bestRank);
+					}
 					bayes_network.update(rank_hand, (double) user.retChips(), (double) Dealer.start_chip_amt*2);					
 					String comp_move2 = george.decide(bayes_network);	//TODO				// -1 for fold, 0 for call, 1 for raise
 					
