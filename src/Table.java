@@ -3,11 +3,6 @@ import java.util.ArrayList;
 
 public class Table {
 	
-	/* TODO
-	 * Test clear table
-	 * Test addCardsToTable
-	 */
-	
 	private ArrayList<Card> cards_on_table; 
 	private int pot;
 	
@@ -19,28 +14,28 @@ public class Table {
 		pot = 0;
 	}
 	
-	/* @Tested
+	/* 
 	 * Dealer plays flop
 	 */
 	public void flop(){
 		addCardsToTable(3);
 	}
 	
-	/* @Tested
+	/* 
 	 * Dealer plays turn
 	 */
 	public void turn(){
 		addCardsToTable(1);
 	}
 	
-	/* @Tested
+	/* 
 	 * Dealer plays river
 	 */
 	public void river(){
 		addCardsToTable(1);
 	}
 	
-	/* @Tested
+	/* 
 	 * Add specific amount of cards into the table for both players to see
 	 */
 	private void addCardsToTable(int num){
@@ -50,7 +45,8 @@ public class Table {
 			cards_on_table.add(card);
 	   }
 	}
-	/* @Tested
+	
+	/* 
 	 * Shows the current amount of cards on the table
 	 */
 	public void showCardsOnTable() {
@@ -62,14 +58,14 @@ public class Table {
 		System.out.println();
 	}
 	
-	/* @Tested
+	/* 
 	 * Add to pot
 	 */
 	public void addToPot(int amount) {
 		pot+=amount;
 	}
 	
-	/* @Tested
+	/* 
 	 * Return pot amount
 	 */
 	public int retPot() {
@@ -86,7 +82,6 @@ public class Table {
 	/*
 	 * Return cards on table
 	 */
-	
 	public ArrayList<Card> getCardsOnTable(){
 		
 	 return cards_on_table;
@@ -95,7 +90,6 @@ public class Table {
 	/*
 	 * Clears cards_on_table
 	 */
-	
 	public void clearTable(){
 		cards_on_table.clear();
 

@@ -23,19 +23,25 @@ public class Computer {
 		this.hand = hand;
 	}
 	
+	/*
+	 * Add card to hands
+	 */
 	public void addCardToHand(Card card){
 		hand.addCard(card);
 	}
 	
+	/*
+	 * Add computers card to hand
+	 */
 	public void addPlayerCards(PlayerCards pc){
 		this.playerCards = pc;
-		System.out.println(pc.card1);
-		System.out.println(pc.card2);
 		addCardToHand(pc.card1);
 		addCardToHand(pc.card2);
 	}
 	
-	
+	/*
+	 * Clears computers hand
+	 */
 	public void clearHand(){
 		hand.makeEmpty();
 	}
@@ -55,14 +61,14 @@ public class Computer {
 		return hand;
 	}
 	
-	/* @Tested
+	/* 
 	 * Return user's chip amount
 	 */
 	public int retChips() {
 		return chips;
 	}
 	
-	/* @Tested
+	/* 
 	 * Computer will pay ante
 	 */
 	public boolean payAnte(int ante){
@@ -74,50 +80,24 @@ public class Computer {
 		}
 	}
 	
-//	/*
-//	 * Update Computer's bid amount
-//	 */
-//	public void updateBid(int amount) {
-//		comp_bid = amount;
-//	}
-	
 	/*
 	 * Computer's bid amount
 	 */
 	public int wantToBid() {
 		return comp_bid;
 	}
-
-//	public boolean canMakeBid(int amount) {
-//		if(!((chips - amount) < 0)) {
-//			chips-=amount;
-//			return true;
-//		} else {
-//			return false;
-//		}
-//	}
 	
 	/*
 	 * Computer bidding
 	 */
 	public void bid(int amount, int user_chips) {
-		// the computer will have to handle how much it should bid, without going over its amount
-		// the computer will have to consider the users_chip amount here too as well
-		// you have to update comp_bid amount after the computer makes it choice 
-		
-		
-		
 		chips-=amount;
-//		comp_bid = amount;
-		
-		// user doesn't have same bid amount
-		// computer needs to lower it or force the other player to go all in
 	}
 	
 	/*
 	 * Computer decides to fold, call, or raise
 	 */
-	public String decide(Network bayes_network) {				// you will eventually remove test and have the computer decide on its own
+	public String decide(Network bayes_network) {				
 		String result = bayes_network.evaluate();
 		
 		if(result.toLowerCase().equals("fold")) {
@@ -132,20 +112,6 @@ public class Computer {
 		}
 		// check - 4
 		return "4";
-		// you will have to have the computer do calculations here
-//		int test1 = test;
-//		
-//		if(test1 == -1) {
-//			return "1";					// this means fold
-//		} else if(test1 == 0) {
-//			return "2";					// this means call
-//		} else if(test1 == 1) {
-//			return "3";					// this means raise
-//		} else {
-//			return "4";					// this means check
-//		}
-//		
-		
 	}
 	
 	/*
@@ -167,32 +133,34 @@ public class Computer {
 	 * Computer folds their hand
 	 */
 	public void fold() {
-		
+		System.out.println("George Folds");
 	}
 	
 	/*
 	 * Computer calls their hand
 	 */
 	public void call() {
-		
+		System.out.println("George Calls");
 	}
 	
 	/*
 	 * Computer raises the current bid
 	 */
 	public void raise() {
-		
+		System.out.println("George raises");
 	}
 	
 	/*
 	 *  Computer checks
 	 */
 	public void check() {
-		
+		System.out.println("George Checks");
 	}
 	
+	/*
+	 * Returns the users hand
+	 */
 	public Hand getHand() {
-		// TODO Auto-generated method stub
 		return hand;
 	}
 }

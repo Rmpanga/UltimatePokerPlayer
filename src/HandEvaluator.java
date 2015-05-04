@@ -15,44 +15,6 @@
  */
 
 public class HandEvaluator {
-
-   public static void main(String args[]){
-       Hand hand1 = new Hand("Kd 8c 9c Tc Jc Qc Ad");
-       
-       Hand hand2 = new Hand("7h 2h 9c Kc 3d Qd 6h");
-       
-       Hand hand3 = new Hand("Ah 4c 10d 2h 5c 9s 7c");
-       
-       Hand hand4 = new Hand("6h As");		// 167
-       
-       Hand hand5 = new Hand("Ad Kd Qd Jd 10d");
-       Hand hand6 = new Hand("Ad Kd Qd Jd 9d");
-       
-       Hand hand7 = new Hand("2h 2c");
-       Hand hand8 = new Hand("3h 3c");
-       
-       HandEvaluator handEval = new HandEvaluator();
-
-       System.out.println(handEval.getBest5CardHand(hand1));
-       System.out.println(handEval.getBest5CardHand(hand2)); //2197
-       
-       
-
-       System.out.println(handEval.rankHand(hand1));
-       System.out.println("Hand 2 : " + handEval.rankHand(hand2));
-       System.out.println("Hand 3 : " + handEval.rankHand(hand3));
-       System.out.println("Hand 4 : " + handEval.rankHand(hand4));
-       System.out.println("Hand 5 : " + handEval.rankHand(hand5));
-       System.out.println("Hand 6 : " + handEval.rankHand(hand6));
-       System.out.println("Hand 7 : " + handEval.rankHand(hand7));
-       System.out.println("Hand 8 : " + handEval.rankHand(hand8));
-       System.out.println(handEval.rankHand(hand7) - handEval.rankHand(hand8));
-//       System.out.println(handEval.nameHand(hand1));
-//       System.out.println(handEval.nameHand(hand2));
-       
-      System.out.println(handEval.compareHands(hand1, hand2));
-
-   }
    
    /**
     * Get a numerical ranking of this hand.

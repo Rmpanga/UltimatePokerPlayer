@@ -34,17 +34,21 @@ public class User {
 		return playerCards;
 	}
 	
+	/*
+	 * Clear the user's hand
+	 */
 	public void clearHand(){
 		hand.makeEmpty();
 	}
-	/* @Tested
+	
+	/*
 	 * Return user's chip amount
 	 */
 	public int retChips() {
 		return chips;
 	}
 	
-	/* @Tested
+	/*
 	 * User pays ante
 	 */
 	public boolean payAnte(int ante) {
@@ -61,13 +65,6 @@ public class User {
 	 */
 	public void updateBid(int amount) {
 		user_bid = amount;
-	}
-	
-	/*
-	 * User checks
-	 */
-	public void check() {
-		
 	}
 	
 	/*
@@ -92,25 +89,33 @@ public class User {
 	}
 	
 	/*
+	 * User checks
+	 */
+	public void check() {
+		System.out.println("You check");
+	}
+	
+	/*
 	 * User folds their hand
 	 */
 	public void fold() {
-		//TODO
+		System.out.println("You fold");
 	}
 	
 	/*
 	 * User calls their hand
 	 */
 	public void call() {
-		//TODO
+		System.out.println("You call");
 	}
 	
 	/*
 	 * User raises the current bid
 	 */
 	public void raise() {
-		//TODO
+		System.out.println("You raise");
 	}
+	
 	/*
 	 * Displays User's hand
 	 */
@@ -118,10 +123,16 @@ public class User {
 		System.out.println("[ " + playerCards.getCard1().toString() + " ] " + "[ " + playerCards.getCard2().toString() + " ]  ");
 	}
 
+	/*
+	 * Add users card to user's hand
+	 */
 	public void addCardToHand(Card card){
 		hand.addCard(card);
 	}
 	
+	/*
+	 * Get user's hand
+	 */
 	public Hand getHand(){
 		return hand; 
 	}
